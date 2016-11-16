@@ -1,4 +1,4 @@
-# first-presentation
+# CSHelper
 
 This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.1.0.
 
@@ -31,7 +31,7 @@ Running `npm test` will run the unit tests with karma.
 mysqldump -u newuser -p --no-create-db --no-data CSHelper > dbdesign.sql
 ```
 
-## Export SQL design
+## Import SQL design
 
 ```sh
 mysql -u user -p {{database name}} < dbdesign.sql

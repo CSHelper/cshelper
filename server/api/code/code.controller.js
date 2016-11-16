@@ -13,12 +13,10 @@
 
 import jsonpatch from 'fast-json-patch';
 import {Code,TestView} from '../../sqldb';
+import {testC} from './languages/c';
+import bluebird from 'bluebird';
 
-var fs = require('fs');
-var Promise = require('bluebird');
-var fs = require('fs');
-Promise.promisifyAll(fs);
-var spawnSync = require('spawn-sync');
+Promise = bluebird;
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -91,103 +89,24 @@ export function show(req, res) {
 }
 
 // Creates a new Code in the DB
-function write(content, fileExtension) {
-  fs.writeFileSync('./log.' + fileExtension, content)
-    return content;
-    
-}
-
-function spawnC(res, fileExtension) {
-  let consoleOutput = '';
-  let complier = '';
-  if (fileExtension === 'cpp') {
-    complier = 'g++';
-  } else {
-    complier = 'gcc';
-  }
-
-  var result = spawnSync(complier,
-    ['log.'+ fileExtension]);
-
-  if (result.status !== 0) {
-    consoleOutput = result.stderr.toString('utf8');
-  } else {
-    result = spawnSync('./a.out');
-    consoleOutput = result.stdout.toString('utf8');
-    consoleOutput += result.stderr.toString('utf8');
-  }
-  return {
-    isSuccess: result.status === 0,
-    consoleOutput: consoleOutput
-  };
-}
-
-function spawnNode(res, fileExtension) {
-  var results = {
-    stderr: '',
-    stdout:''
-  };
-
-  var result = spawnSync('node',
-    ['log.'+ fileExtension]);
-
-  results.stdout = result.stdout.toString('utf8');
-  results.stderr = result.stderr.toString('utf8');
-
-  return res.json(results)
-}
-
-function testData(tmp, req, res) {
-  let cat = '';
-  tmp.inputs = JSON.parse(tmp.inputs);
-  for(let input in tmp.inputs) {
-    cat +=  tmp.inputs[input].value + ',';
-  }
-  cat = cat.slice(0, -1);
-  let unitTest = unitTestC;
-  tmp.expectedOutput = JSON.parse(tmp.expectedOutput);
-  unitTest = unitTest
-    .replace('{{params}}', cat)
-    .replace('{{expectedOutput}}', tmp.expectedOutput.value)
-    .replace('{{dataType}}', tmp.expectedOutput.dataType)
-    .replace('{{functionName}}', tmp.functionName)
-    .replace('{{printType}}', '%d');
-  unitTest = unitTest + req.body.code.content;
-  write(unitTest, req.body.code.fileExtension)
-  let runningOutput;
-      if (req.body.code.fileExtension === 'js') {
-        spawnNode(res, 'js');
-      } else if (req.body.code.fileExtension === 'c' || req.body.code.fileExtension === 'cpp') {
-       runningOutput = spawnC(res, req.body.code.fileExtension);
-      }
-      let outputs = runningOutput.consoleOutput.split('\n');
-      tmp.output = outputs.pop();
-      tmp.consoleOutput = outputs.join('\n');
-      tmp.isSuccess = runningOutput.isSuccess;
-      return tmp;
-}
-
-var unitTestC = `void main(){
-  {{dataType}} output = {{functionName}}({{params}});
-  printf("\\n{{printType}}", output);
-  if(output != {{expectedOutput}}) {
-    exit(1);
-  }
-  exit(0);
-}
-`
-// Creates a new Code in the DB
 export function create(req, res) {
-
   let tmp;
   let dataSets;
+
+  // Find all test data
   TestView.findAll({where: {problemId: 1}})
-    .then(function (results){
+    .then(function (results) {
+      // Do testing
       dataSets = results;
+      let tests = [];
+
       for(let i = 0; i < dataSets.length; i++)
-        testData(results[i], req, res);
+        tests.push(testC(results[i], req, res));
+
+      return Promise.all(tests);
     })
-    .then(function (result) {
+    .then(function () {
+      // Check if all passed
       let entry = req.body.code;
       entry.isSuccess = true;
       for (let i = 0; i < dataSets.length; i++) {
@@ -195,10 +114,12 @@ export function create(req, res) {
           entry.isSuccess = false;
         }
       }
-    
-      return Code.create(entry)
+      
+      // Create try entry in database
+      return Code.create(entry);
     })
     .then(function(){
+      // Finalize result
       let results = [];
       for (let i = 0; i < dataSets.length; i++) {
         let object = {
@@ -209,7 +130,6 @@ export function create(req, res) {
         };
         results.push(object);
       }
-      console.log(results)
       return res.json(results);
     })
     .catch(handleError(res));
