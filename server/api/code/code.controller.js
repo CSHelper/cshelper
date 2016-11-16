@@ -101,7 +101,7 @@ export function create(req, res) {
       let tests = [];
 
       for(let i = 0; i < dataSets.length; i++)
-        tests.push(testC(results[i], req, res));
+        tests.push(testC(results[i], req.body.code));
 
       return Promise.all(tests);
     })

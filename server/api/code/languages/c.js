@@ -27,27 +27,27 @@ let unitTestC = `void main(){
 }
 `;
 
-export function testC(tmp, req, res) {
+export function testC(testData, requestBody) {
   let cat = '';
-  tmp.inputs = JSON.parse(tmp.inputs);
-  for(let input in tmp.inputs) {
-    cat +=  tmp.inputs[input].value + ',';
+  testData.inputs = JSON.parse(testData.inputs);
+  for(let input in testData.inputs) {
+    cat +=  testData.inputs[input].value + ',';
   }
   // Take out last comma
   cat = cat.slice(0, -1);
 
   // Populate test file
   let unitTest = unitTestC;
-  tmp.expectedOutput = JSON.parse(tmp.expectedOutput);
+  testData.expectedOutput = JSON.parse(testData.expectedOutput);
   unitTest = unitTest
     .replace('{{params}}', cat)
-    .replace('{{expectedOutput}}', tmp.expectedOutput.value)
-    .replace('{{dataType}}', tmp.expectedOutput.dataType)
-    .replace('{{functionName}}', tmp.functionName)
+    .replace('{{expectedOutput}}', testData.expectedOutput.value)
+    .replace('{{dataType}}', testData.expectedOutput.dataType)
+    .replace('{{functionName}}', testData.functionName)
     .replace('{{printType}}', '%d');
-  unitTest = unitTest + req.body.code.content;
+  unitTest = unitTest + requestBody.content;
 
-  const filePath = write(unitTest, req.body.code.fileExtension);
+  const filePath = write(unitTest, requestBody.fileExtension);
 
   return compile(filePath)
     .then(function (outFile) {
@@ -55,11 +55,11 @@ export function testC(tmp, req, res) {
     })
     .then(function (runningOutput) {
       let outputs = runningOutput.consoleOutput.split('\n');
-      tmp.output = outputs.pop();
-      tmp.consoleOutput = outputs.join('\n');
-      tmp.isSuccess = runningOutput.isSuccess;
+      testData.output = outputs.pop();
+      testData.consoleOutput = outputs.join('\n');
+      testData.isSuccess = runningOutput.isSuccess;
 
-      return tmp;
+      return testData;
     })
     .catch(function (error) {
       return error;
