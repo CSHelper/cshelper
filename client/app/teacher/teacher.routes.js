@@ -3,9 +3,9 @@
 export default function($stateProvider) {
   'ngInject';
   $stateProvider
-    .state('manageStudents', {
-      url: '/manageStudents',
-      template: '<manage-students></manage-students>',
+    .state('teacher', {
+      url: '/teacher',
+      template: '<teacher></teacher>',
       authenticate: 'tutor'
     });
 }
