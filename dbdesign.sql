@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: CSHelper
 -- ------------------------------------------------------
--- Server version	5.7.16-0ubuntu0.16.04.1
+-- Server version	5.7.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,7 @@ CREATE TABLE `Codes` (
   KEY `problemId` (`problemId`),
   CONSTRAINT `Codes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `Codes_ibfk_2` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,27 +72,7 @@ CREATE TABLE `DataSets` (
   PRIMARY KEY (`_id`),
   KEY `problemId` (`problemId`),
   CONSTRAINT `DataSets_ibfk_1` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `Problems`
---
-
-DROP TABLE IF EXISTS `Problems`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Problems` (
-  `_id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(25) NOT NULL,
-  `language` varchar(10) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `template` varchar(255) NOT NULL,
-  `functionName` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,26 +91,8 @@ CREATE TABLE `Sessions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `sid` (`sid`),
   UNIQUE KEY `Sessions_sid_unique` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Temporary view structure for view `TestViews`
---
-
-DROP TABLE IF EXISTS `TestViews`;
-/*!50001 DROP VIEW IF EXISTS `TestViews`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `TestViews` AS SELECT 
- 1 AS `_id`,
- 1 AS `inputs`,
- 1 AS `expectedOutput`,
- 1 AS `problemId`,
- 1 AS `functionName`,
- 1 AS `createdAt`,
- 1 AS `updatedAt`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `Things`
@@ -147,7 +109,7 @@ CREATE TABLE `Things` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=751 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=859 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,26 +130,8 @@ CREATE TABLE `TutorStudents` (
   KEY `studentId` (`studentId`),
   CONSTRAINT `TutorStudents_ibfk_1` FOREIGN KEY (`tutorId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `TutorStudents_ibfk_2` FOREIGN KEY (`studentId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=326 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=411 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Temporary view structure for view `TutorViews`
---
-
-DROP TABLE IF EXISTS `TutorViews`;
-/*!50001 DROP VIEW IF EXISTS `TutorViews`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `TutorViews` AS SELECT 
- 1 AS `_id`,
- 1 AS `studentName`,
- 1 AS `studentEmail`,
- 1 AS `studentId`,
- 1 AS `tutorId`,
- 1 AS `createdAt`,
- 1 AS `updatedAt`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `Users`
@@ -212,14 +156,69 @@ CREATE TABLE `Users` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`_id`),
   UNIQUE KEY `Users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=628 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=765 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Final view structure for view `TestViews`
+-- Table structure for table `problems`
 --
 
-/*!50001 DROP VIEW IF EXISTS `TestViews`*/;
+DROP TABLE IF EXISTS `problems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `problems` (
+  `_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(25) NOT NULL,
+  `language` varchar(10) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `functionName` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `testviews`
+--
+
+DROP TABLE IF EXISTS `testviews`;
+/*!50001 DROP VIEW IF EXISTS `testviews`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `testviews` AS SELECT 
+ 1 AS `_id`,
+ 1 AS `inputs`,
+ 1 AS `expectedOutput`,
+ 1 AS `problemId`,
+ 1 AS `functionName`,
+ 1 AS `createdAt`,
+ 1 AS `updatedAt`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `tutorviews`
+--
+
+DROP TABLE IF EXISTS `tutorviews`;
+/*!50001 DROP VIEW IF EXISTS `tutorviews`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `tutorviews` AS SELECT 
+ 1 AS `_id`,
+ 1 AS `studentName`,
+ 1 AS `studentEmail`,
+ 1 AS `studentId`,
+ 1 AS `tutorId`,
+ 1 AS `createdAt`,
+ 1 AS `updatedAt`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `testviews`
+--
+
+/*!50001 DROP VIEW IF EXISTS `testviews`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -228,16 +227,16 @@ CREATE TABLE `Users` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `TestViews` AS select `DataSets`.`_id` AS `_id`,`DataSets`.`inputs` AS `inputs`,`DataSets`.`expectedOutput` AS `expectedOutput`,`DataSets`.`problemId` AS `problemId`,`Problems`.`functionName` AS `functionName`,`DataSets`.`createdAt` AS `createdAt`,`DataSets`.`updatedAt` AS `updatedAt` from (`DataSets` join `Problems`) where (`Problems`.`_id` = `DataSets`.`problemId`) */;
+/*!50001 VIEW `testviews` AS select `datasets`.`_id` AS `_id`,`datasets`.`inputs` AS `inputs`,`datasets`.`expectedOutput` AS `expectedOutput`,`datasets`.`problemId` AS `problemId`,`problems`.`functionName` AS `functionName`,`datasets`.`createdAt` AS `createdAt`,`datasets`.`updatedAt` AS `updatedAt` from (`datasets` join `problems`) where (`problems`.`_id` = `datasets`.`problemId`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `TutorViews`
+-- Final view structure for view `tutorviews`
 --
 
-/*!50001 DROP VIEW IF EXISTS `TutorViews`*/;
+/*!50001 DROP VIEW IF EXISTS `tutorviews`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -246,7 +245,7 @@ CREATE TABLE `Users` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `TutorViews` AS select `TutorStudents`.`_id` AS `_id`,`Users`.`name` AS `studentName`,`Users`.`email` AS `studentEmail`,`TutorStudents`.`studentId` AS `studentId`,`TutorStudents`.`tutorId` AS `tutorId`,`TutorStudents`.`createdAt` AS `createdAt`,`TutorStudents`.`updatedAt` AS `updatedAt` from (`TutorStudents` join `Users`) where (`TutorStudents`.`studentId` = `Users`.`_id`) */;
+/*!50001 VIEW `tutorviews` AS select `tutorstudents`.`_id` AS `_id`,`users`.`name` AS `studentName`,`users`.`email` AS `studentEmail`,`tutorstudents`.`studentId` AS `studentId`,`tutorstudents`.`tutorId` AS `tutorId`,`tutorstudents`.`createdAt` AS `createdAt`,`tutorstudents`.`updatedAt` AS `updatedAt` from (`tutorstudents` join `users`) where (`tutorstudents`.`studentId` = `users`.`_id`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -260,4 +259,4 @@ CREATE TABLE `Users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-04 12:27:06
+-- Dump completed on 2016-12-07 16:08:21
