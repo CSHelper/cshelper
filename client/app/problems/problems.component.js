@@ -17,7 +17,7 @@ export class ProblemsComponent {
     this.response;
     this.tab = 'console';
 
-    var self = this;
+    let self = this;
     this.$http.get('/api/problems/' + this.id)
     .then(function (res) {
       self.init(res.data.problem, res.data.dataset);
@@ -30,7 +30,6 @@ export class ProblemsComponent {
     this.dataset = dataset;
 
     this.editor = (this.createCodeMirror('code-editor'));
-    this.editor.getDoc().setValue(problem.template);
     this.editor.setOption('mode', 'text/x-' + problem.language+'src');
     this.description = problem.description;
     this.title = problem.title;
@@ -59,12 +58,14 @@ export class ProblemsComponent {
 
     let data = {
       code:{
+        id: this.id,
         content: this.editor.getValue(), 
         fileExtension: "c"
       }
     }
 
     if(this.editor.getValue()) {
+      console.log(data)
       this.$http.post('/api/codes', data)
         .then(function (res) {
           self.isProcessing = false;

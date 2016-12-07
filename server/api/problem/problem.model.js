@@ -20,10 +20,6 @@ export default function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    template: { 
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     functionName: { 
       type: DataTypes.STRING,
       allowNull: false

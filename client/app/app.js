@@ -30,11 +30,12 @@ import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
 import ManageStudentsComponent from './manageStudents/manageStudents.component';
 import TeacherComponent from './teacher/teacher.component';
+import ProblemCreationComponent from './problemCreation/problemCreation.component';
 import './app.css';
 
 angular.module('firstPresentationApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io',
     uiRouter, uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util,
-    ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent
+    ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent, ProblemCreationComponent
   ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {

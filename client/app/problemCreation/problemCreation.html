@@ -1,0 +1,217 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">  <!-- Student List Column -->
+		<a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Menu</strong></a>
+		<hr>
+
+		<div class="form-group">
+			<label for="sel2">Student List (hold ctrl to select more than one):</label>
+			<select multiple class="form-control" id="sel2">
+				<option>Dustin</option>
+				<option>Sunday</option>
+				<option>Eric</option>
+				<option>Ryan</option>
+				<option>Frank</option>
+				<option>Tommy</option>
+			</select>
+		</div>
+
+		<hr>
+        </div>
+        
+        <div class="col-sm-3"> <!-- Section - Topic - Problem Column (Accordion) -->
+		<a href="#"><strong><i class="glyphicon glyphicon-list"></i> Choose a Problem</strong></a>
+
+		<hr>
+			<div class="form-group">
+				<label for="sel1">Select Language:</label>
+				<select class="form-control" id="sel1" ng-model="problemCreationCtrl.language">
+					<option>Java</option>
+					<option>C++</option>
+					<option>C</option>
+					<option>Python</option>
+				</select>
+				</br>
+				</br>
+				</br>
+				<label for="sel1">Select Section:</label> <!--Assuming java basics selected-->
+				<select class="form-control" id="sel1">
+					<option>Java Basics</option>
+					<option>Conditional Statements</option>
+					<option>Loops</option>
+				</select>
+				</br>
+				</br>
+				</br>
+				<label for="sel1">Select Topic:</label> <!--Assuming java basics selected-->
+				<select class="form-control" id="sel1">
+					<option>Data Types</option>
+					<option>If Statements</option>
+					<option>Output</option>
+				</select>
+			</div>
+        </div>
+        
+	
+        <div class="col-sm-7"> <!-- Problem / Attempt Column -->
+		<a href="#"><strong><i class="glyphicon glyphicon-education"></i> Problem Creation</strong></a>
+
+		<hr>
+		
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label for="comment">Ttle:</label>
+				<input class="form-control" ng-model="problemCreationCtrl.title">
+			</div>
+			<div class="col-sm-6">
+				<label for="comment">Function Name:</label>
+				<input class="form-control" ng-model="problemCreationCtrl.functionName">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="comment">Description:</label>
+			<textarea class="form-control" rows="5" id="comment" ng-model="problemCreationCtrl.description"></textarea>
+		</div>
+		
+		<div>
+			<button class="btn btn-info" ng-click="problemCreationCtrl.addTestCase()">Add</button>
+			<button class="btn btn-primary" ng-click="problemCreationCtrl.submit()">Submit</button>
+		</div>
+		
+		<div id="inputProblem">
+			<div class="testCase" ng-repeat="testCase in problemCreationCtrl.testCases track by $index">
+				<div id="input{{unique}}" class="input">	
+				<hr>
+				<div>
+					<label for="usr">Input 1</label>
+					</br>
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="usr">Value:</label>
+						</div>
+						<div class="col-sm-6">
+							<label for="usr">Data Type:</label>
+						</div>
+					</div>
+					<div class="row">	
+						<div class="col-sm-6">
+							<div class="form-group">
+							  <input type="text" ng-model="testCase.inputs[0].value" class="form-control" id="variableName{{unique}}">
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<select class="form-control" id="datatype{{unique}}" ng-model="testCase.inputs[0].dataType">
+									<option>int</option>
+									<option>double</option>
+									<option>float</option>
+									<option>char</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="input{{unique}}" class="input">	
+				<hr>
+				<div>
+					<label for="usr">Input 2</label>
+					</br>
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="usr">Value:</label>
+						</div>
+						<div class="col-sm-6">
+							<label for="usr">Data Type:</label>
+						</div>
+					</div>
+					<div class="row">	
+						<div class="col-sm-6">
+							<div class="form-group">
+							  <input type="text" class="form-control" ng-model="testCase.inputs[1].value" id="variableName{{unique}}">
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<select class="form-control" ng-model="testCase.inputs[1].dataType" id="datatype{{unique}}">
+									<option>int</option>
+									<option>double</option>
+									<option>float</option>
+									<option>char</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="input{{unique}}" class="input">	
+				<hr>
+				<div>
+					<label for="usr">Output</label>
+					</br>
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="usr">Value:</label>
+						</div>
+						<div class="col-sm-6">
+							<label for="usr">Data Type:</label>
+						</div>
+					</div>
+					<div class="row">	
+						<div class="col-sm-6">
+							<div class="form-group">
+							  <input type="text" class="form-control" ng-model="testCase.expectedOutput.value" id="variableName{{unique}}">
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<select class="form-control" ng-model="testCase.expectedOutput.dataType" id="datatype{{unique}}">
+									<option>int</option>
+									<option>double</option>
+									<option>float</option>
+									<option>char</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+
+
+    		<!-- <br/>
+    		<br/>
+
+    		<div class="row">
+    			<div class="col-sm-2">
+					<label for="usr">Hint 1:</label>
+				</div>
+				<div class="col-sm-10">
+					<div class="form-group">
+					  <input type="text" class="form-control" id="usr">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<label for="usr">Hint 2:</label>
+				</div>
+				<div class="col-sm-10">
+					<div class="form-group">
+					  <input type="text" class="form-control" id="usr">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<label for="usr">Hint 3:</label>
+				</div>
+				<div class="col-sm-10">
+					<div class="form-group">
+					  <input type="text" class="form-control" id="usr">
+					</div>
+				</div>
+    		</div> -->
+
+			
+			
+        </div>
+    </div>
+</div>

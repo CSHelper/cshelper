@@ -59,6 +59,7 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+    console.log(err);
     res.status(statusCode).send(err);
   };
 }
@@ -105,6 +106,12 @@ export function show(req, res) {
 // Creates a new Problem in the DB
 export function create(req, res) {
   return Problem.create(req.body)
+    .then(function(problem){
+      for (var i = req.body.testCases.length - 1; i >= 0; i--) {
+        req.body.testCases[i].problemId = problem._id;
+      };
+      return Dataset.bulkCreate(req.body.testCases)
+    })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
