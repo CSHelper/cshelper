@@ -1,0 +1,73 @@
+<!-- Current Task Jumbotron -->	
+<div class="container" ng-init="problemsCtrl.init()">
+	<div class="coding-section">
+		<div class="row upper">
+			<div class="col-md-5 description">
+				<div style="">
+					<h1>{{problemsCtrl.title}}</h1>
+
+					<p>Description:</p> <!-- Describe the Task Here -->
+					{{problemsCtrl.description}}
+
+					<div class="mw-highlight mw-content-ltr" dir="ltr">
+						
+					</div>
+					<p></p>
+				</div>
+			</div>
+			<div class="col-md-7 editor-panel">
+				<div class="editor-options">
+					<span>
+						<select id="languageSelector" class="selectpicker">
+						  <option value="text/x-csrc">C</option>
+						  <option value="text/x-c++src">C++</option>
+						  <option value="text/x-java">Java</option>
+						</select>
+					</span>
+					<span class="pull-right">
+						<!-- <button class="btn btn-primary" ng-disable="problemsCtrl.isProcessing" ng-click="problemsCtrl.run()">
+							Run 
+							<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true" ng-show="problemsCtrl.isProcessing"></i>
+						</button> -->
+						<button class="btn btn-primary" ng-disable="problemsCtrl.isProcessing" ng-click="problemsCtrl.submit()">
+							Submit 
+							<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true" ng-show="problemsCtrl.isProcessing"></i>
+						</button>
+						{{problemsCtrl.store}}
+					</span>
+
+				</div>
+				
+				<p></p>
+				
+				<div class="editor">
+					<textarea id="code-editor" ng-model="problemsCtrl.store"></textarea>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row lower">
+		<div class="col-md-4">
+			<div class="list-group" ng-repeat="test in problemsCtrl.dataset track by $index">
+			  <a href="#" class="list-group-item" ng-class="test.class || 'list-group-item-danger'">
+			    Test {{$index + 1}}
+			  </a>
+			  <a href="#" class="list-group-item">Input(s): <span ng-repeat="input in test.inputs">{{input.dataType}} {{input.value}}, </span></a>
+			  <a href="#" class="list-group-item">
+			  Output: {{test.output || 'null'}}</a>
+			  <a href="#" class="list-group-item">Expected output: {{test.expectedOutput.dataType}} {{test.expectedOutput.value}}</a>
+			  <a href="#" class="list-group-item">Console output: {{test.consoleOutput || 'null'}}</a>
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<!-- <ul class="nav nav-tabs">
+			  <li role="presentation" class="active"><a href="#">Console</a></li>
+			  <li role="presentation"><a href="#">Tests</a></li>
+			</ul> -->
+			<textarea id="code-output"></textarea>
+		</div>
+	</div>
+</div>

@@ -160,13 +160,13 @@ CREATE TABLE `Users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `problems`
+-- Table structure for table `Problems`
 --
 
-DROP TABLE IF EXISTS `problems`;
+DROP TABLE IF EXISTS `Problems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `problems` (
+CREATE TABLE `Problems` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(25) NOT NULL,
   `language` varchar(10) NOT NULL,
@@ -179,14 +179,14 @@ CREATE TABLE `problems` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Temporary view structure for view `testviews`
+-- Temporary view structure for view `TestViews`
 --
 
-DROP TABLE IF EXISTS `testviews`;
-/*!50001 DROP VIEW IF EXISTS `testviews`*/;
+DROP TABLE IF EXISTS `TestViews`;
+/*!50001 DROP VIEW IF EXISTS `TestViews`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `testviews` AS SELECT 
+/*!50001 CREATE VIEW `TestViews` AS SELECT 
  1 AS `_id`,
  1 AS `inputs`,
  1 AS `expectedOutput`,
@@ -197,14 +197,14 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `tutorviews`
+-- Temporary view structure for view `TutorViews`
 --
 
-DROP TABLE IF EXISTS `tutorviews`;
-/*!50001 DROP VIEW IF EXISTS `tutorviews`*/;
+DROP TABLE IF EXISTS `TutorViews`;
+/*!50001 DROP VIEW IF EXISTS `TutorViews`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `tutorviews` AS SELECT 
+/*!50001 CREATE VIEW `TutorViews` AS SELECT 
  1 AS `_id`,
  1 AS `studentName`,
  1 AS `studentEmail`,
@@ -215,10 +215,10 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Final view structure for view `testviews`
+-- Final view structure for view `TestViews`
 --
 
-/*!50001 DROP VIEW IF EXISTS `testviews`*/;
+/*!50001 DROP VIEW IF EXISTS `TestViews`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -227,16 +227,16 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `testviews` AS select `datasets`.`_id` AS `_id`,`datasets`.`inputs` AS `inputs`,`datasets`.`expectedOutput` AS `expectedOutput`,`datasets`.`problemId` AS `problemId`,`problems`.`functionName` AS `functionName`,`datasets`.`createdAt` AS `createdAt`,`datasets`.`updatedAt` AS `updatedAt` from (`datasets` join `problems`) where (`problems`.`_id` = `datasets`.`problemId`) */;
+/*!50001 VIEW `TestViews` AS select `DataSets`.`_id` AS `_id`,`DataSets`.`inputs` AS `inputs`,`DataSets`.`expectedOutput` AS `expectedOutput`,`DataSets`.`problemId` AS `problemId`,`Problems`.`functionName` AS `functionName`,`DataSets`.`createdAt` AS `createdAt`,`DataSets`.`updatedAt` AS `updatedAt` from (`DataSets` join `Problems`) where (`Problems`.`_id` = `DataSets`.`problemId`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `tutorviews`
+-- Final view structure for view `TutorViews`
 --
 
-/*!50001 DROP VIEW IF EXISTS `tutorviews`*/;
+/*!50001 DROP VIEW IF EXISTS `TutorViews`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -245,7 +245,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `tutorviews` AS select `tutorstudents`.`_id` AS `_id`,`users`.`name` AS `studentName`,`users`.`email` AS `studentEmail`,`tutorstudents`.`studentId` AS `studentId`,`tutorstudents`.`tutorId` AS `tutorId`,`tutorstudents`.`createdAt` AS `createdAt`,`tutorstudents`.`updatedAt` AS `updatedAt` from (`tutorstudents` join `users`) where (`tutorstudents`.`studentId` = `users`.`_id`) */;
+/*!50001 VIEW `TutorViews` AS select `TutorStudents`.`_id` AS `_id`,`Users`.`name` AS `studentName`,`Users`.`email` AS `studentEmail`,`TutorStudents`.`studentId` AS `studentId`,`TutorStudents`.`tutorId` AS `tutorId`,`TutorStudents`.`createdAt` AS `createdAt`,`TutorStudents`.`updatedAt` AS `updatedAt` from (`TutorStudents` join `Users`) where (`TutorStudents`.`studentId` = `Users`.`_id`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

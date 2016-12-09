@@ -22,9 +22,16 @@
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="$ctrl.isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
         <li ng-hide="$ctrl.isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
-        <li ng-show="$ctrl.isLoggedIn()"><p class="navbar-text">Hello {{ $ctrl.getCurrentUser().name }}</p> </li>
-        <li ng-show="$ctrl.isLoggedIn()" ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="$ctrl.isLoggedIn()"><a ui-sref="logout">Logout</a></li>
+        <li class="dropdown">
+          <a ng-show="$ctrl.isLoggedIn()" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello {{ $ctrl.getCurrentUser().name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a ui-sref="problems.all">All Problem</a></li>
+            <li><a ui-sref="problems.add">New Problem</a></li>
+            <li class="divider"></li>
+            <li><a ui-sref="settings">Change Password</a></li>
+            <li><a ui-sref="logout">Logout</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

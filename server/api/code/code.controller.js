@@ -94,7 +94,7 @@ export function create(req, res) {
   let dataSets;
 
   // Find all test data
-  TestView.findAll({where: {problemId: req.body.id}})
+  TestView.findAll({where: {problemId: req.body.code.id}})
     .then(function (results) {
       // Do testing
       dataSets = results;

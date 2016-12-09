@@ -39,6 +39,27 @@ export function index(req, res) {
 }
 
 /**
+ * Get list of student
+ * restriction: 'tutor'
+ */
+export function getStudents(req, res) {
+  return User.findAll({
+    attributes: [
+      '_id',
+      'name',
+      'email'
+    ],
+    where: {
+      role: 'student'
+    }
+  })
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(handleError(res));
+}
+
+/**
  * Creates a new user
  */
 export function create(req, res) {

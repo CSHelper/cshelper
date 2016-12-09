@@ -11,7 +11,7 @@
 'use strict';
 
 import jsonpatch from 'fast-json-patch';
-import {Problem, Dataset} from '../../sqldb';
+import {Problem, Dataset, Assignment, AssignmentDetail} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -66,7 +66,39 @@ function handleError(res, statusCode) {
 
 // Gets a list of Problems
 export function index(req, res) {
+  let myproblems;
   return Problem.findAll()
+    .then(function (problems) {
+      myproblems = problems;
+      return AssignmentDetail.findAll({
+        where: {
+          assignerId: req.user._id
+        }
+      });
+    })
+    .then(function (assignments) {
+      let assignmentGroup = {};
+      // for (var i = 0; i < assignments.length; i++) {
+      //   if (assignmentGroup[assignments[i].problemId]) {
+      //     assignmentGroup[assignments[i].problemId].push(assignments[i]);
+      //   } else {
+      //     assignmentGroup[assignments[i].problemId] = [assignments[i]];
+      //   }
+      // }
+
+      // for (let key in assignmentGroup) {
+      //   for (var i = 0; i < myproblems.length; i++) {
+      //     if (myproblems[i]._id = key) {
+      //       myproblems[i].assignTo = assignmentGroup[i];
+      //     }
+      //   }
+      // }
+
+      return {
+        problems: myproblems,
+        assignments
+      };
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -105,12 +137,28 @@ export function show(req, res) {
 
 // Creates a new Problem in the DB
 export function create(req, res) {
+  let problemId;
   return Problem.create(req.body)
     .then(function(problem){
+      problemId = problem._id;
       for (var i = req.body.testCases.length - 1; i >= 0; i--) {
         req.body.testCases[i].problemId = problem._id;
       };
       return Dataset.bulkCreate(req.body.testCases)
+    })
+    .then(function () {
+      if (req.body.assignees) {
+        let assignment = [];
+
+        for (var i = req.body.assignees.length - 1; i >= 0; i--) {
+          assignment.push({
+            assigneeId: req.body.assignees[i],
+            assignerId: req.user._id,
+            problemId
+          })
+        };
+        return Assignment.bulkCreate(assignment);
+      }
     })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

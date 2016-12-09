@@ -7,30 +7,67 @@ import routes from './problems.routes';
 
 export class ProblemsComponent {
   /*@ngInject*/
-  constructor($stateParams, $timeout, $http) {
+  constructor($stateParams, $timeout, $http, $state) {
     'ngInject';
 
     this.id = $stateParams.id;
     this.$http = $http;
     this.$timeout = $timeout;
+    this.$state = $state;
+  }
+
+  getAll() {
+    let self = this;
+    this.$http.get('/api/problems')
+      .then(function (res) {
+        let assignmentGroup = {};
+        self.problems = res.data.problems;
+        let assignments = res.data.assignments;
+        
+        for (var i = 0; i < assignments.length; i++) {
+          if (assignmentGroup[assignments[i].problemId]) {
+            assignmentGroup[assignments[i].problemId].push(assignments[i]);
+          } else {
+            assignmentGroup[assignments[i].problemId] = [assignments[i]];
+          }
+        }
+
+        for (let key in assignmentGroup) {
+          for (var i = 0; i < self.problems.length; i++) {
+            if (self.problems[i]._id == key) {
+              self.problems[i].assignTo = assignmentGroup[key];
+            }
+          }
+        }
+        console.log(assignmentGroup);
+        console.log(self.problems);
+      })
+  }
+
+  init() {
     this.editors = [];
     this.response;
     this.tab = 'console';
 
     let self = this;
     this.$http.get('/api/problems/' + this.id)
-    .then(function (res) {
-      self.init(res.data.problem, res.data.dataset);
-      self.displayTests();
-    });
+      .then(function (res) {
+        console.log(res.data.problem);
+        if (!res.data.problem) {
+          self.$state.go('main');
+          return;
+        }
+        self.setup(res.data.problem, res.data.dataset);
+        self.displayTests();
+      });
   }
 
-  init(problem, dataset) {
+  setup(problem, dataset) {
     this.problem = problem;
     this.dataset = dataset;
 
     this.editor = (this.createCodeMirror('code-editor'));
-    this.editor.setOption('mode', 'text/x-' + problem.language+'src');
+    this.editor.setOption('mode', 'text/x-' + problem.language + 'src');
     this.description = problem.description;
     this.title = problem.title;
 
@@ -95,8 +132,6 @@ export class ProblemsComponent {
 
   displayTests() {
     console.log(this.dataset);
-    // if (this.tab === 'tests')
-    //   this.output.getDoc().setValue(this.response.consoleOutput);
   }
 
   createCodeMirror(id, options) {
@@ -167,6 +202,16 @@ export default angular.module('firstPresentationApp.problems', [uiRouter])
   .config(routes)
   .component('problems', {
     template: require('./problems.html'),
+    controller: ProblemsComponent,
+    controllerAs: 'problemsCtrl'
+  })
+  .component('problemsid', {
+    template: require('./id/problems.id.html'),
+    controller: ProblemsComponent,
+    controllerAs: 'problemsCtrl'
+  })
+  .component('problemsall', {
+    template: require('./all/problems.all.html'),
     controller: ProblemsComponent,
     controllerAs: 'problemsCtrl'
   })

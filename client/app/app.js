@@ -24,18 +24,19 @@ import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import main from './main/main.component';
 import ProblemsComponent from './problems/problems.component';
+import ProblemAddComponent from './problems/add/problems.add.component';
 import StatsticComponent from './statstic/statstic.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
 import ManageStudentsComponent from './manageStudents/manageStudents.component';
 import TeacherComponent from './teacher/teacher.component';
-import ProblemCreationComponent from './problemCreation/problemCreation.component';
 import './app.css';
 
 angular.module('firstPresentationApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io',
     uiRouter, uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util,
-    ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent, ProblemCreationComponent
+    ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent, 
+    ProblemAddComponent
   ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {
