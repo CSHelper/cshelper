@@ -1,0 +1,102 @@
+.
+├── client
+│   ├── app
+│   │   ├── account
+│   │   │   ├── account.routes.js
+│   │   │   ├── index.js
+│   │   │   ├── login
+│   │   │   ├── settings
+│   │   │   └── signup
+│   │   ├── main
+│   │   ├── manageStudents
+│   │   ├── problemCreation
+│   │   ├── problems
+│   │   │   ├── add
+│   │   │   ├── all
+│   │   │   ├── id
+│   │   ├── statstic
+│   │   ├── teacher
+│   │   ├── admin
+│   │   │
+│   │   ├── app.config.js
+│   │   ├── app.constants.js
+│   │   ├── app.css
+│   │   └── app.js
+│   │   
+│   ├── components
+│   │   ├── auth
+│   │   ├── footer
+│   │   ├── modal
+│   │   ├── mongoose-error
+│   │   ├── navbar
+│   │   ├── oauth-buttons
+│   │   ├── socket
+│   │   ├── ui-router
+│   │   └── util
+│   ├── favicon.ico
+│   ├── _index.html
+│   └── index.html
+├── dbdesign.sql
+├── dev.sqlite
+├── e2e
+│   ├── account
+│   │   ├── login
+│   │   │   ├── login.po.js
+│   │   │   └── login.spec.js
+│   │   ├── logout
+│   │   │   └── logout.spec.js
+│   │   └── signup
+│   │       ├── signup.po.js
+│   │       └── signup.spec.js
+│   ├── components
+│   │   ├── navbar
+│   │   │   └── navbar.po.js
+│   │   └── oauth-buttons
+│   │       └── oauth-buttons.po.js
+│   └── main
+│       ├── main.po.js
+│       └── main.spec.js
+├── gulpfile.babel.js
+├── karma.conf.js
+├── mocha.conf.js
+├── mocha.global.js
+├── package.json
+├── protractor.conf.js
+├── README.md
+├── server
+│   ├── api
+│   │   ├── code
+│   │   ├── dataset
+│   │   ├── problem
+│   │   ├── tutorStudent
+│   │   └── user
+│   ├── app.js
+│   ├── auth
+│   │   ├── auth.service.js
+│   │   ├── facebook
+│   │   ├── google
+│   │   ├── index.js
+│   │   └── local
+│   ├── components
+│   │   └── errors
+│   │       └── index.js
+│   ├── config
+│   │   ├── environment
+│   │   ├── express.js
+│   │   ├── local.env.sample.js
+│   │   ├── seed.js
+│   │   └── socketio.js
+│   ├── index.js
+│   ├── routes.js
+│   ├── sqldb
+│   │   └── index.js
+│   └── views
+│       └── 404.html
+├── spec.js
+├── style
+│   └── main.css
+├── tree
+├── webpack.build.js
+├── webpack.dev.js
+├── webpack.make.js
+└── webpack.test.js
