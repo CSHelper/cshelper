@@ -9,11 +9,11 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
     },
     inputs: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false
     },
     expectedOutput: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false
     }
   });

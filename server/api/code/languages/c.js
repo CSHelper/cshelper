@@ -17,41 +17,15 @@ function write(content, fileExtension, username = 'unknown') {
   return filePath;
 }
 
-let unitTestC = `void main(){
-  {{dataType}} output = {{functionName}}({{params}});
-  printf("\\n{{printType}}", output);
-  if(output != {{expectedOutput}}) {
-    exit(1);
-  }
-  exit(0);
-}
-`;
-
 export function testC(testData, requestBody) {
-  let cat = '';
-  testData.inputs = JSON.parse(testData.inputs);
-  for(let input in testData.inputs) {
-    cat +=  testData.inputs[input].value + ',';
-  }
-  // Take out last comma
-  cat = cat.slice(0, -1);
-
   // Populate test file
-  let unitTest = unitTestC;
-  testData.expectedOutput = JSON.parse(testData.expectedOutput);
-  unitTest = unitTest
-    .replace('{{params}}', cat)
-    .replace('{{expectedOutput}}', testData.expectedOutput.value)
-    .replace('{{dataType}}', testData.expectedOutput.dataType)
-    .replace('{{functionName}}', testData.functionName)
-    .replace('{{printType}}', '%d');
-  unitTest = unitTest + requestBody.content;
+  //testData.expectedOutput = JSON.parse(testData.expectedOutput);
 
-  const filePath = write(unitTest, requestBody.fileExtension);
+  const filePath = write(requestBody.content, requestBody.fileExtension);
 
   return compile(filePath)
-    .then(function (outFile) {
-      return spawnC(filePath, outFile);
+    .then(function (exeFile) {
+      return spawnC(filePath, exeFile);
     })
     .then(function (runningOutput) {
       let outputs = runningOutput.consoleOutput.split('\n');
@@ -70,10 +44,10 @@ function compile (filePath) {
   return new Promise(function (resolve, reject) {
     let consoleOutput = '';
     const parser = path.parse(filePath);
-    const outFile = path.join(parser.dir, parser.name);
+    const exeFile = path.join(parser.dir, parser.name);
 
     let result = spawnSync('gcc',
-      [filePath, '-o', outFile]);
+      [filePath, '-o', exeFile]);
 
     if (result.status !== 0) {
       reject({
@@ -82,16 +56,21 @@ function compile (filePath) {
       });
     } else {
       fs.unlinkSync(filePath);
-      resolve(outFile);
+      resolve(exeFile);
     }
   })
 }
 
-function spawnC(filePath, outFile) {
+function spawnC(filePath, exeFile, testData) {
   return new Promise(function (resolve) {
+    let isSuccess = true;
     let consoleOutput = '';
+    let script = 'script.sh "{{1}}" "{{2}} {{3}}"'
+    .replace("{{1}}",testData.inputs)
+    .replace("{{2}}",testData.expectedOutput)
+    .replace("{{3}}",exeFile);
 
-    const ls = spawn(outFile);
+    const ls = spawn(exeFile);
     ls.stdout.on('data', (data) => {
       consoleOutput += data;
     });
@@ -101,7 +80,7 @@ function spawnC(filePath, outFile) {
     });
 
     ls.on('close', (code) => {
-      fs.unlinkSync(outFile);
+      fs.unlinkSync(exeFile);
       resolve({
         isSuccess: code === 0,
         consoleOutput: consoleOutput

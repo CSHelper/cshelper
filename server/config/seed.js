@@ -118,140 +118,89 @@ function createProlems() {
         functionName: 'multiply'
       }])
     })
-    .then(() => {
-      return Assignment.sync()
-        .then(() => Assignment.destroy({ where: {} }))
-        .then(() => {
-          Assignment.bulkCreate([{
-            problemId: 1,
-            assigneeId: 1,
-            assignerId: 7,
-          },{
-            problemId: 1,
-            assigneeId: 2,
-            assignerId: 7,
-          },{
-            problemId: 1,
-            assigneeId: 3,
-            assignerId: 7,
-          },{
-            problemId: 1,
-            assigneeId: 4,
-            assignerId: 7,
-          },{
-            problemId: 2,
-            assigneeId: 1,
-            assignerId: 7,
-          },{
-            problemId: 2,
-            assigneeId: 2,
-            assignerId: 7,
-          },{
-            problemId: 2,
-            assigneeId: 3,
-            assignerId: 7,
-          },{
-            problemId: 3,
-            assigneeId: 1,
-            assignerId: 7,
-          },{
-            problemId: 3,
-            assigneeId: 2,
-            assignerId: 7,
-          },{
-            problemId: 3,
-            assigneeId: 3,
-            assignerId: 7,
-          },{
-            problemId: 3,
-            assigneeId: 4,
-            assignerId: 7,
-          },{
-            problemId: 3,
-            assigneeId: 5,
-            assignerId: 7,
-          }])
-        })
-    })
+    // .then(() => {
+    //   return Assignment.sync()
+    //     .then(() => Assignment.destroy({ where: {} }))
+    //     .then(() => {
+    //       Assignment.bulkCreate([{
+    //         problemId: 1,
+    //         assigneeId: 1,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 1,
+    //         assigneeId: 2,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 1,
+    //         assigneeId: 3,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 1,
+    //         assigneeId: 4,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 2,
+    //         assigneeId: 1,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 2,
+    //         assigneeId: 2,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 2,
+    //         assigneeId: 3,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 3,
+    //         assigneeId: 1,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 3,
+    //         assigneeId: 2,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 3,
+    //         assigneeId: 3,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 3,
+    //         assigneeId: 4,
+    //         assignerId: 7,
+    //       },{
+    //         problemId: 3,
+    //         assigneeId: 5,
+    //         assignerId: 7,
+    //       }])
+    //     })
+    // })
     .then(() => {
       DataSet.sync()
         .then(() => DataSet.destroy({ where: {} }))
         .then(() => {
           DataSet.bulkCreate([{
-            inputs: [{
-                value:2, dataType:'int'
-              },{
-                value:3, dataType: 'int'
-              }
-            ],
-            expectedOutput: {
-              value:5,dataType: 'int'
-            },
+            inputs: "2 3",
+            expectedOutput: "5",
             problemId: 1
 
           },{
-            inputs: [{
-                value:1, dataType:'int'
-              },{
-                value:2, dataType: 'int'
-              }
-            ],
-            expectedOutput: {
-              value:3,dataType: 'int'
-            },
+            inputs: "1 2",
+            expectedOutput: "3",
             problemId: 1
           },{
-            inputs: [{
-                value: 4, 
-                dataType: 'int'
-              },{
-                value: 2,
-                dataType: 'int'
-              }
-            ],
-            expectedOutput: {
-              value:2,
-              dataType: 'int'
-            },
+            inputs: "4 2",
+            expectedOutput: "2",
             problemId: 2
           },{
-            inputs: [{
-                value: 100, 
-                dataType: 'int'
-              },{
-                value:2, dataType: 'int'
-              }
-            ],
-            expectedOutput: {
-              value: 98,
-              dataType: 'int'
-            },
+            inputs: "100 2",
+            expectedOutput: "98",
             problemId: 2
           },{
-            inputs: [{
-                value: 100, 
-                dataType: 'int'
-              },{
-                value:2, dataType: 'int'
-              }
-            ],
-            expectedOutput: {
-              value: 200,
-              dataType: 'int'
-            },
+            inputs: "100 2",
+            expectedOutput: "200",
             problemId: 3
           },{
-            inputs: [{
-                value: 50, 
-                dataType: 'int'
-              },{
-                value: 3, dataType: 'int'
-              }
-            ],
-            expectedOutput: {
-              value: 150,
-              dataType: 'int'
-            },
+            inputs: "50 3",
+            expectedOutput: "150",
             problemId: 3
           }])
           .then(() => {

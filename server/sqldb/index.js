@@ -10,7 +10,7 @@ import Sequelize from 'sequelize';
 
 var db = {
   Sequelize,
-  sequelize: new Sequelize('CSHelper', 'newuser', 'cshelper', {logging: false})
+  sequelize: new Sequelize('TMP', 'newuser', 'cshelper', {logging: false})
 };
 
 // Insert models below
