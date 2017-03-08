@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for osx10.9 (x86_64)
 --
--- Host: localhost    Database: CSHelper
+-- Host: localhost    Database: TMP
 -- ------------------------------------------------------
--- Server version	5.7.17-0ubuntu0.16.04.1
+-- Server version	5.7.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,26 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Temporary view structure for view `AssignmentDetails`
---
-
-DROP TABLE IF EXISTS `AssignmentDetails`;
-/*!50001 DROP VIEW IF EXISTS `AssignmentDetails`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `AssignmentDetails` AS SELECT 
- 1 AS `_id`,
- 1 AS `assignerName`,
- 1 AS `assignerId`,
- 1 AS `assigneeId`,
- 1 AS `assigneeName`,
- 1 AS `deadline`,
- 1 AS `problemId`,
- 1 AS `createdAt`,
- 1 AS `updatedAt`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `Assignments`
@@ -81,7 +61,7 @@ CREATE TABLE `Codes` (
   KEY `problemId` (`problemId`),
   CONSTRAINT `Codes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `Codes_ibfk_2` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,26 +78,6 @@ CREATE TABLE `Compiles` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `DataSets`
---
-
-DROP TABLE IF EXISTS `DataSets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DataSets` (
-  `_id` int(11) NOT NULL AUTO_INCREMENT,
-  `inputs` json NOT NULL,
-  `expectedOutput` json NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `problemId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`_id`),
-  KEY `problemId` (`problemId`),
-  CONSTRAINT `DataSets_ibfk_1` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,26 +115,8 @@ CREATE TABLE `Sessions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `sid` (`sid`),
   UNIQUE KEY `Sessions_sid_unique` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Temporary view structure for view `TestViews`
---
-
-DROP TABLE IF EXISTS `TestViews`;
-/*!50001 DROP VIEW IF EXISTS `TestViews`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `TestViews` AS SELECT 
- 1 AS `_id`,
- 1 AS `inputs`,
- 1 AS `expectedOutput`,
- 1 AS `problemId`,
- 1 AS `functionName`,
- 1 AS `createdAt`,
- 1 AS `updatedAt`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `Tests`
@@ -230,26 +172,8 @@ CREATE TABLE `TutorStudents` (
   KEY `studentId` (`studentId`),
   CONSTRAINT `TutorStudents_ibfk_1` FOREIGN KEY (`tutorId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `TutorStudents_ibfk_2` FOREIGN KEY (`studentId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=626 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=736 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Temporary view structure for view `TutorViews`
---
-
-DROP TABLE IF EXISTS `TutorViews`;
-/*!50001 DROP VIEW IF EXISTS `TutorViews`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `TutorViews` AS SELECT 
- 1 AS `_id`,
- 1 AS `studentName`,
- 1 AS `studentEmail`,
- 1 AS `studentId`,
- 1 AS `tutorId`,
- 1 AS `createdAt`,
- 1 AS `updatedAt`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `Users`
@@ -274,14 +198,90 @@ CREATE TABLE `Users` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`_id`),
   UNIQUE KEY `Users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1090 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1282 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Final view structure for view `AssignmentDetails`
+-- Temporary view structure for view `assignmentdetails`
 --
 
-/*!50001 DROP VIEW IF EXISTS `AssignmentDetails`*/;
+DROP TABLE IF EXISTS `assignmentdetails`;
+/*!50001 DROP VIEW IF EXISTS `assignmentdetails`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `assignmentdetails` AS SELECT 
+ 1 AS `_id`,
+ 1 AS `assignerName`,
+ 1 AS `assignerId`,
+ 1 AS `assigneeId`,
+ 1 AS `assigneeName`,
+ 1 AS `deadline`,
+ 1 AS `problemId`,
+ 1 AS `createdAt`,
+ 1 AS `updatedAt`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `datasets`
+--
+
+DROP TABLE IF EXISTS `datasets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `datasets` (
+  `_id` int(11) NOT NULL AUTO_INCREMENT,
+  `inputs` varchar(255) NOT NULL,
+  `expectedOutput` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `problemId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`_id`),
+  KEY `problemId` (`problemId`),
+  CONSTRAINT `DataSets_ibfk_1` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=469 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `testviews`
+--
+
+DROP TABLE IF EXISTS `testviews`;
+/*!50001 DROP VIEW IF EXISTS `testviews`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `testviews` AS SELECT 
+ 1 AS `_id`,
+ 1 AS `inputs`,
+ 1 AS `expectedOutput`,
+ 1 AS `problemId`,
+ 1 AS `functionName`,
+ 1 AS `createdAt`,
+ 1 AS `updatedAt`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `tutorviews`
+--
+
+DROP TABLE IF EXISTS `tutorviews`;
+/*!50001 DROP VIEW IF EXISTS `tutorviews`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `tutorviews` AS SELECT 
+ 1 AS `_id`,
+ 1 AS `studentName`,
+ 1 AS `studentEmail`,
+ 1 AS `studentId`,
+ 1 AS `tutorId`,
+ 1 AS `createdAt`,
+ 1 AS `updatedAt`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `assignmentdetails`
+--
+
+/*!50001 DROP VIEW IF EXISTS `assignmentdetails`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -290,16 +290,16 @@ CREATE TABLE `Users` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `AssignmentDetails` AS select `a`.`_id` AS `_id`,`u`.`name` AS `assignerName`,`u`.`_id` AS `assignerId`,`u1`.`_id` AS `assigneeId`,`u1`.`name` AS `assigneeName`,`a`.`deadline` AS `deadline`,`a`.`problemId` AS `problemId`,`a`.`createdAt` AS `createdAt`,`a`.`updatedAt` AS `updatedAt` from ((`Users` `u` join `Users` `u1`) join `Assignments` `a`) where ((`u`.`_id` = `a`.`assignerId`) and (`a`.`assigneeId` = `u1`.`_id`)) */;
+/*!50001 VIEW `assignmentdetails` AS select `a`.`_id` AS `_id`,`u`.`name` AS `assignerName`,`u`.`_id` AS `assignerId`,`u1`.`_id` AS `assigneeId`,`u1`.`name` AS `assigneeName`,`a`.`deadline` AS `deadline`,`a`.`problemId` AS `problemId`,`a`.`createdAt` AS `createdAt`,`a`.`updatedAt` AS `updatedAt` from ((`users` `u` join `users` `u1`) join `assignments` `a`) where ((`u`.`_id` = `a`.`assignerId`) and (`a`.`assigneeId` = `u1`.`_id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `TestViews`
+-- Final view structure for view `testviews`
 --
 
-/*!50001 DROP VIEW IF EXISTS `TestViews`*/;
+/*!50001 DROP VIEW IF EXISTS `testviews`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -308,16 +308,16 @@ CREATE TABLE `Users` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `TestViews` AS select `DataSets`.`_id` AS `_id`,`DataSets`.`inputs` AS `inputs`,`DataSets`.`expectedOutput` AS `expectedOutput`,`DataSets`.`problemId` AS `problemId`,`Problems`.`functionName` AS `functionName`,`DataSets`.`createdAt` AS `createdAt`,`DataSets`.`updatedAt` AS `updatedAt` from (`DataSets` join `Problems`) where (`Problems`.`_id` = `DataSets`.`problemId`) */;
+/*!50001 VIEW `testviews` AS select `datasets`.`_id` AS `_id`,`datasets`.`inputs` AS `inputs`,`datasets`.`expectedOutput` AS `expectedOutput`,`datasets`.`problemId` AS `problemId`,`problems`.`functionName` AS `functionName`,`datasets`.`createdAt` AS `createdAt`,`datasets`.`updatedAt` AS `updatedAt` from (`datasets` join `problems`) where (`problems`.`_id` = `datasets`.`problemId`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `TutorViews`
+-- Final view structure for view `tutorviews`
 --
 
-/*!50001 DROP VIEW IF EXISTS `TutorViews`*/;
+/*!50001 DROP VIEW IF EXISTS `tutorviews`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -326,7 +326,7 @@ CREATE TABLE `Users` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `TutorViews` AS select `TutorStudents`.`_id` AS `_id`,`Users`.`name` AS `studentName`,`Users`.`email` AS `studentEmail`,`TutorStudents`.`studentId` AS `studentId`,`TutorStudents`.`tutorId` AS `tutorId`,`TutorStudents`.`createdAt` AS `createdAt`,`TutorStudents`.`updatedAt` AS `updatedAt` from (`TutorStudents` join `Users`) where (`TutorStudents`.`studentId` = `Users`.`_id`) */;
+/*!50001 VIEW `tutorviews` AS select `tutorstudents`.`_id` AS `_id`,`users`.`name` AS `studentName`,`users`.`email` AS `studentEmail`,`tutorstudents`.`studentId` AS `studentId`,`tutorstudents`.`tutorId` AS `tutorId`,`tutorstudents`.`createdAt` AS `createdAt`,`tutorstudents`.`updatedAt` AS `updatedAt` from (`tutorstudents` join `users`) where (`tutorstudents`.`studentId` = `users`.`_id`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -340,4 +340,4 @@ CREATE TABLE `Users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-20 13:07:17
+-- Dump completed on 2017-03-08 13:24:15
