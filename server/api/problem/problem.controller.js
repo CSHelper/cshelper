@@ -120,10 +120,10 @@ export function show(req, res) {
       })
     })
     .then(function (results) {
-      for (var i = 0; i < results.length; i++) {
-        results[i].inputs = JSON.parse(results[i].inputs);
-        results[i].expectedOutput = JSON.parse(results[i].expectedOutput);
-      }
+      //for (var i = 0; i < results.length; i++) {
+        //results[i].inputs = parse(results[i].inputs);
+        //results[i].expectedOutput = JSON.parse(results[i].expectedOutput);
+      //}
       
       return {
         dataset: results,

@@ -107,6 +107,7 @@ export class ProblemsComponent {
         .then(function (res) {
           self.isProcessing = false;
           self.response = res.data;
+          console.log(res.data)
           for (var i = 0; i < self.response.length; i++) {
             for (var key in self.response[i]) {
               self.dataset[i][key] = self.response[i][key];

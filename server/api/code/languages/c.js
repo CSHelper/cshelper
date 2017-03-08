@@ -22,18 +22,11 @@ export function testC(testData, requestBody) {
   //testData.expectedOutput = JSON.parse(testData.expectedOutput);
 
   const filePath = write(requestBody.content, requestBody.fileExtension);
-
+console.log("done writing")
   return compile(filePath)
     .then(function (exeFile) {
-      return spawnC(filePath, exeFile);
-    })
-    .then(function (runningOutput) {
-      let outputs = runningOutput.consoleOutput.split('\n');
-      testData.output = outputs.pop();
-      testData.consoleOutput = outputs.join('\n');
-      testData.isSuccess = runningOutput.isSuccess;
-
-      return testData;
+      console.log("done compiling")
+      return spawnC(filePath, exeFile, testData);
     })
     .catch(function (error) {
       return error;
@@ -42,8 +35,10 @@ export function testC(testData, requestBody) {
 
 function compile (filePath) {
   return new Promise(function (resolve, reject) {
-    let consoleOutput = '';
+    let output = '';
     const parser = path.parse(filePath);
+    console.log(parser.dir, filePath)
+
     const exeFile = path.join(parser.dir, parser.name);
 
     let result = spawnSync('gcc',
@@ -52,7 +47,7 @@ function compile (filePath) {
     if (result.status !== 0) {
       reject({
         isSuccess: result.status === 0,
-        consoleOutput: result.stderr.toString('utf8')
+        output: result.stderr.toString('utf8')
       });
     } else {
       fs.unlinkSync(filePath);
@@ -64,26 +59,27 @@ function compile (filePath) {
 function spawnC(filePath, exeFile, testData) {
   return new Promise(function (resolve) {
     let isSuccess = true;
-    let consoleOutput = '';
-    let script = 'script.sh "{{1}}" "{{2}} {{3}}"'
-    .replace("{{1}}",testData.inputs)
-    .replace("{{2}}",testData.expectedOutput)
-    .replace("{{3}}",exeFile);
+    let output = '';
+    let script = '/Users/Frank/Desktop/Git/cshelper/test/script.sh "{{1}}" "{{2}}" "/Users/Frank/Desktop/Git/cshelper/{{3}}"'
+      .replace("{{1}}",testData.inputs)
+      .replace("{{2}}",testData.expectedOutput)
+      .replace("{{3}}",exeFile);
 
-    const ls = spawn(exeFile);
+    const ls = spawn(script);
     ls.stdout.on('data', (data) => {
-      consoleOutput += data;
+      output += data;
     });
 
     ls.stderr.on('data', (data) => {
-      consoleOutput += data;
+      output += data;
     });
 
     ls.on('close', (code) => {
-      fs.unlinkSync(exeFile);
+      //fs.unlinkSync(exeFile);
+      console.log(output)
       resolve({
         isSuccess: code === 0,
-        consoleOutput: consoleOutput
+        output: output
       });
     });
   });

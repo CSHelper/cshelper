@@ -103,6 +103,8 @@ export function create(req, res) {
       for(let i = 0; i < dataSets.length; i++)
         tests.push(testC(results[i], req.body.code));
 
+      console.log("findAll 1")
+
       return Promise.all(tests);
     })
     .then(function () {
@@ -116,16 +118,19 @@ export function create(req, res) {
       }
       
       // Create try entry in database
+
+      console.log("findAll 2")
+
       return Code.create(entry);
     })
     .then(function(){
       // Finalize result
       let results = [];
+      console.log(dataSets.length)
       for (let i = 0; i < dataSets.length; i++) {
         let object = {
           isSuccess: dataSets[i].isSuccess,
           _id: dataSets[i]._id,
-          consoleOutput: dataSets[i].consoleOutput,
           output: dataSets[i].output
         };
         results.push(object);

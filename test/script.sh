@@ -1,4 +1,4 @@
- let comp="$(echo $1 | $3)"
+let comp="$(echo $1 | $3)"
 if [ $comp == $2 ]; 
 then
 	exit 0
