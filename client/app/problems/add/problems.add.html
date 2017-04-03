@@ -1,212 +1,141 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2">  <!-- Student List Column -->
-    <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Menu</strong></a>
-    <hr>
+<form ng-submit="ProblemsAddCtrl.submit()">
+  <div class="container-fluid body">
+      <div class="row">       
+          <div class="col-sm-3"> <!-- Define Problem -->
+        <a href="#"><strong><i class="glyphicon glyphicon-list"></i> Define Problem</strong></a>
 
-    <div class="form-group" ng-init="ProblemsAddCtrl.getStudents()">
-      <label for="sel2">Student List (hold ctrl to select more than one):</label>
-      <select multiple class="form-control" id="sel2" ng-model="ProblemsAddCtrl.assignees">
-        <option ng-repeat="student in ProblemsAddCtrl.students" value="{{student._id}}">{{student.name}}</option>
-      </select>
-    </div>
-
-    <hr>
-        </div>
-        
-        <div class="col-sm-3"> <!-- Section - Topic - Problem Column (Accordion) -->
-    <a href="#"><strong><i class="glyphicon glyphicon-list"></i> Choose a Problem</strong></a>
-
-    <hr>
-      <div class="form-group">
-        <label for="sel1">Select Language:</label>
-        <select class="form-control" id="sel1" ng-model="ProblemsAddCtrl.language">
-          <option>Java</option>
-          <option>C++</option>
-          <option>C</option>
-          <option>Python</option>
-        </select>
-        </br>
-        </br>
-        </br>
-        <label for="sel1">Select Section:</label> <!--Assuming java basics selected-->
-        <select class="form-control" id="sel1">
-          <option>Java Basics</option>
-          <option>Conditional Statements</option>
-          <option>Loops</option>
-        </select>
-        </br>
-        </br>
-        </br>
-        <label for="sel1">Select Topic:</label> <!--Assuming java basics selected-->
-        <select class="form-control" id="sel1">
-          <option>Data Types</option>
-          <option>If Statements</option>
-          <option>Output</option>
-        </select>
-      </div>
-        </div>
-        
-  
-        <div class="col-sm-7"> <!-- Problem / Attempt Column -->
-    <a href="#"><strong><i class="glyphicon glyphicon-education"></i> Problem Creation</strong></a>
-
-    <hr>
-    
-    <div class="form-group">
-      <div class="col-sm-6">
-        <label for="comment">Title:</label>
-        <input class="form-control" ng-model="ProblemsAddCtrl.title">
-      </div>
-      <div class="col-sm-6">
-        <label for="comment">Function Name:</label>
-        <input class="form-control" ng-model="ProblemsAddCtrl.functionName">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="comment">Description:</label>
-      <textarea class="form-control" rows="5" id="comment" ng-model="ProblemsAddCtrl.description"></textarea>
-    </div>
-    
-    <div>
-      <button class="btn btn-info" ng-click="ProblemsAddCtrl.addTestCase()">Add</button>
-      <button class="btn btn-primary" ng-click="ProblemsAddCtrl.submit()">Submit</button>
-    </div>
-    
-    <div id="inputProblem">
-      <div class="testCase" ng-repeat="testCase in ProblemsAddCtrl.testCases track by $index">
-        <div id="input{{unique}}" class="input">  
         <hr>
-        <div>
-          <label for="usr">Input 1</label>
-          </br>
-          <div class="row">
-            <div class="col-sm-6">
-              <label for="usr">Value:</label>
-            </div>
-            <div class="col-sm-6">
-              <label for="usr">Data Type:</label>
-            </div>
-          </div>
-          <div class="row"> 
-            <div class="col-sm-6">
-              <div class="form-group">
-                <input type="text" ng-model="testCase.inputs[0].value" class="form-control" id="variableName{{unique}}">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <select class="form-control" id="datatype{{unique}}" ng-model="testCase.inputs[0].dataType">
-                  <option>int</option>
-                  <option>double</option>
-                  <option>float</option>
-                  <option>char</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="input{{unique}}" class="input">  
-        <hr>
-        <div>
-          <label for="usr">Input 2</label>
-          </br>
-          <div class="row">
-            <div class="col-sm-6">
-              <label for="usr">Value:</label>
-            </div>
-            <div class="col-sm-6">
-              <label for="usr">Data Type:</label>
-            </div>
-          </div>
-          <div class="row"> 
-            <div class="col-sm-6">
-              <div class="form-group">
-                <input type="text" class="form-control" ng-model="testCase.inputs[1].value" id="variableName{{unique}}">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <select class="form-control" ng-model="testCase.inputs[1].dataType" id="datatype{{unique}}">
-                  <option>int</option>
-                  <option>double</option>
-                  <option>float</option>
-                  <option>char</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="input{{unique}}" class="input">  
-        <hr>
-        <div>
-          <label for="usr">Output</label>
-          </br>
-          <div class="row">
-            <div class="col-sm-6">
-              <label for="usr">Value:</label>
-            </div>
-            <div class="col-sm-6">
-              <label for="usr">Data Type:</label>
-            </div>
-          </div>
-          <div class="row"> 
-            <div class="col-sm-6">
-              <div class="form-group">
-                <input type="text" class="form-control" ng-model="testCase.expectedOutput.value" id="variableName{{unique}}">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <select class="form-control" ng-model="testCase.expectedOutput.dataType" id="datatype{{unique}}">
-                  <option>int</option>
-                  <option>double</option>
-                  <option>float</option>
-                  <option>char</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-
-
-        <!-- <br/>
-        <br/>
-
-        <div class="row">
-          <div class="col-sm-2">
-          <label for="usr">Hint 1:</label>
-        </div>
-        <div class="col-sm-10">
+        <div class="row">       
+          <div class="col-sm-10">
           <div class="form-group">
-            <input type="text" class="form-control" id="usr">
+                <label>Assign Problem to Students: 
+                  </br>
+                  <span style="color:#999999">(hold ctrl to select more than one)</span>
+                </label>
+                </br>
+                </br>
+                <select style="height: 154px" multiple class="form-control selectStudents" id="selectStudents">
+                  <option ng-repeat="std in ProblemsAddCtrl.students">{{std.name}}</option>
+                </select>
           </div>
-        </div>
-        <div class="col-sm-2">
-          <label for="usr">Hint 2:</label>
-        </div>
-        <div class="col-sm-10">
-          <div class="form-group">
-            <input type="text" class="form-control" id="usr">
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <label for="usr">Hint 3:</label>
-        </div>
-        <div class="col-sm-10">
-          <div class="form-group">
-            <input type="text" class="form-control" id="usr">
-          </div>
-        </div>
-        </div> -->
+          <hr>
+          <br/>
+            <!-- <div class="form-group">
+              <label>Select Language:</label>
+              <select class="form-control" id="language">
+                <option>Java</option>
+                <option>C++</option>
+                <option>C</option>
+                <option>Python</option>
+              </select>
+              </br>
+              </br>
+              </br>
+              <label>Select Section:</label> 
+              <select class="form-control" id="section">
+                <option>Java Basics</option>
+                <option>Conditional Statements</option>
+                <option>Loops</option>
+              </select>
+              </br>
+              </br>
+              </br>
+              <label>Select Topic:</label> 
+              <select class="form-control" id="topic">
+                <option>Data Types</option>
+                <option>If Statements</option>
+                <option>Output</option>
+              </select>
+              
+              <hr>
 
-      
-      
+              
+            </div> -->
+          </div>
         </div>
-    </div>
-</div>
+          </div>
+          
+    
+        <div class="col-sm-6" > <!-- Problem Creation Column -->
+          <a href="#"><strong><i class="glyphicon glyphicon-education"></i> Problem Creation</strong></a>
+
+          <hr>
+          
+          
+          <div class="form-group">
+            <label>Problem Name:</label>
+            <input ng-model="ProblemsAddCtrl.title" type="text" class="form-control" id="problemName" required>
+            </br>
+          
+            <label for="comment">Description:</label>
+            <textarea ng-model="ProblemsAddCtrl.description" class="form-control" rows="25" id="comment" required></textarea>
+          </div>
+
+          <input class="btn btn-primary pull-right" type="submit">
+          <hr>
+        </div>
+          
+        <div class="col-sm-3">  
+           <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Test Creation</strong></a>
+           <hr>
+           
+           <div class="row">
+             <div class="pull-right">
+               <a ng-click="ProblemsAddCtrl.addTestCase()" class="btn btn-info" >Add a Test</a>
+             </div>
+          </div>
+
+          <div style="overflow-y: scroll; height: 76vh;">
+            <label for="comment">Tests:</label>
+            <ul class="nav nav-pills nav-stacked" id="stacked-menu">
+              <li ng-repeat="test in ProblemsAddCtrl.testCases track by $index">
+                <div class="list-group-item list-group-item-info">
+                  <a data-toggle="collapse" data-parent="#stacked-menu" href="#p{{$index + 1}}">Test {{$index + 1}}<span class="caret arrow"></span></a>
+
+                  <a href="" class="pull-right" ng-click="ProblemsAddCtrl.deleteTest($index)">delete</a>
+                </div>
+
+                <ul class="nav nav-pills nav-stacked collapse in" id="p{{$index + 1}}">
+                  <li>
+                    <div>
+                      <div class="list-group-item">
+                        <label>Hidden: <input type="checkbox" ng-model="test.isHidden"></label>
+                      </div>
+                      <div class="list-group-item"><label>Input:</label>
+                        <textarea ng-model="test.inputs" class="form-control" rows="5" id="comment" required></textarea>
+                      </div>
+                      <div class="list-group-item"><label>Output:</label>
+                        <textarea ng-model="test.expectedOutput" class="form-control" rows="2" id="comment" required></textarea>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <div style="overflow-y: scroll; height: 76vh;">
+            <label for="comment">Tests:</label>
+            <div ng-repeat="test in ProblemsAddCtrl.testCases">
+              <li class="list-group-item list-group-item-info">
+                Test {{$index + 1}}
+
+                <a href="" class="pull-right" ng-click="ProblemsAddCtrl.deleteTest($index)">delete</a>
+              </li>
+              <li class="list-group-item">
+                <label>Hidden: <input type="checkbox" ng-model="test.isHidden"></label>
+              </li>
+              <li class="list-group-item"><label>Input:</label>
+
+                <textarea ng-model="test.inputs" class="form-control" rows="5" id="comment" required></textarea>
+              </li>
+              <li class="list-group-item"><label>Output:</label>
+
+              <textarea ng-model="test.expectedOutput" class="form-control" rows="2" id="comment" required></textarea>
+              </li>
+            </div>
+          </div> -->
+        </div>
+  </div>
+  <!-- /Main -->  
+</form>

@@ -1,7 +1,7 @@
 'use strict';
 
 export default function(sequelize, DataTypes) {
-  return sequelize.define('DataSet', {
+  return sequelize.define('Dataset', {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,6 +15,11 @@ export default function(sequelize, DataTypes) {
     expectedOutput: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    isHidden: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
   });
 }

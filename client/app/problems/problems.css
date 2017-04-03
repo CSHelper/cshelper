@@ -1,0 +1,23 @@
+.nav-tabs>li>a {
+  color: black !important;  
+}
+
+.menu {
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+}
+
+.fail {
+  color: red;
+}
+
+.tab-content {
+  background-color: white;
+  padding: 10px;
+  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+}

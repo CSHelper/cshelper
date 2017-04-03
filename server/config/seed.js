@@ -14,7 +14,7 @@ let Assignment = sqldb.Assignment;
 User.sync()
   .then(() => User.destroy({ where: {} }))
   .then(() => {
-    User.bulkCreate([{
+    return User.bulkCreate([{
       provider: 'local',
       name: 'Test User',
       email: 'test@example.com',
@@ -59,19 +59,19 @@ User.sync()
     }, {
       _id: 6,
       provider: 'local',
-      role: 'tutor',
+      role: 'tutor',  
       name: 'Eric Gerardi',
       email: 'egarardi@example.com',
       password: 'test'
     }])
     .then(() => {
       console.log('finished populating users');
-      TutorStudent.sync()
+      return TutorStudent.sync()
         .then(() => {
           return TutorStudent.destroy({ where: {} });
         })
         .then(() => {
-          TutorStudent.bulkCreate([{
+          return TutorStudent.bulkCreate([{
               tutorId: 6,
               studentId: 1
             }, {
@@ -118,61 +118,62 @@ function createProlems() {
         functionName: 'multiply'
       }])
     })
-    // .then(() => {
-    //   return Assignment.sync()
-    //     .then(() => Assignment.destroy({ where: {} }))
-    //     .then(() => {
-    //       Assignment.bulkCreate([{
-    //         problemId: 1,
-    //         assigneeId: 1,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 1,
-    //         assigneeId: 2,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 1,
-    //         assigneeId: 3,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 1,
-    //         assigneeId: 4,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 2,
-    //         assigneeId: 1,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 2,
-    //         assigneeId: 2,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 2,
-    //         assigneeId: 3,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 3,
-    //         assigneeId: 1,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 3,
-    //         assigneeId: 2,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 3,
-    //         assigneeId: 3,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 3,
-    //         assigneeId: 4,
-    //         assignerId: 7,
-    //       },{
-    //         problemId: 3,
-    //         assigneeId: 5,
-    //         assignerId: 7,
-    //       }])
-    //     })
-    // })
+    .then(() => {
+      return Assignment.sync()
+        .then(() => Assignment.destroy({ where: {} }))
+        .then(() => {
+          return Assignment.bulkCreate([{
+            problemId: 1,
+            assigneeId: 2,
+            assignerId: 7,
+          },{
+            problemId: 1,
+            assigneeId: 2,
+            assignerId: 7,
+          },{
+            problemId: 1,
+            assigneeId: 3,
+            assignerId: 7,
+          },{
+            problemId: 1,
+            assigneeId: 4,
+            assignerId: 7,
+          },{  
+            problemId: 2,
+            assigneeId: 1,
+            assignerId: 7,
+          },{
+            problemId: 2,
+            assigneeId: 2,
+            assignerId: 7,
+          },{
+            problemId: 2,
+            assigneeId: 3,
+            assignerId: 7,
+          },{
+            problemId: 3,
+            assigneeId: 1,
+            assignerId: 7,
+          },{
+            problemId: 3,
+            assigneeId: 2,
+            assignerId: 7,
+          },{
+            problemId: 3,
+            assigneeId: 3,
+            assignerId: 7,
+          },{
+            problemId: 3,
+            assigneeId: 4,
+            assignerId: 7,
+          },{
+            problemId: 3,
+            assigneeId: 5,
+            assignerId: 7,
+          }
+          ])
+        })
+    })
     .then(() => {
       DataSet.sync()
         .then(() => DataSet.destroy({ where: {} }))
@@ -186,6 +187,17 @@ function createProlems() {
             inputs: "1 2",
             expectedOutput: "3",
             problemId: 1
+          },{
+            inputs: "2 3",
+            expectedOutput: "5",
+            problemId: 1,
+            isHidden: false
+
+          },{
+            inputs: "1 2",
+            expectedOutput: "3",
+            problemId: 1,
+            isHidden: false
           },{
             inputs: "4 2",
             expectedOutput: "2",

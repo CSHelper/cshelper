@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-static-top">
+<!-- <div class="navbar navbar-inverse navbar-static-top">
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed">
@@ -35,4 +35,43 @@
       </ul>
     </div>
   </div>
+</div>
+ -->
+
+<div id="main-header">
+ <nav class="navbar navbar-default navbar-fixed-top"  style="height: 6.5vh">
+   <div class="container">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="#">CS<span class="logo-dec">Helper</span></a>
+     </div>
+     <div class="collapse navbar-collapse" id="myNavbar">
+       <ul class="nav navbar-nav navbar-right">
+         <li ng-show="$ctrl.$state.current.name == 'main'"><a href="index.html">Home</a></li>
+         <li ng-show="$ctrl.$state.current.name == 'main'"><a href="#feature">About</a></li>
+         <li ng-show="$ctrl.$state.current.name == 'main'"><a href="#portfolio">Tutor</a></li>
+         <li ng-show="$ctrl.$state.current.name == 'main'"><a href="#testimonial">Student</a></li>
+         <li ng-show="$ctrl.$state.current.name == 'main'"><a href="#contact">Contact Us</a></li>
+
+         <li ng-show="$ctrl.isTutor() || $ctrl.isAdmin()" ui-sref-active="active"><a ui-sref="teacher">Teacher</a></li>
+         <li class="dropdown">
+           <a ng-show="$ctrl.isLoggedIn()" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello {{ $ctrl.getCurrentUser().name }} <span class="caret"></span></a>
+           <ul class="dropdown-menu">
+             <li><a ui-sref="problems.all">All Problem</a></li>
+             <li><a ui-sref="problems.add">New Problem</a></li>
+             <li class="divider"></li>
+             <li><a ui-sref="settings">Change Password</a></li>
+             <li><a ui-sref="logout">Logout</a></li>
+           </ul>
+         </li>
+       </ul>
+
+
+     </div>
+   </div>
+ </nav>
 </div>

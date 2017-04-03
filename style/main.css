@@ -32,3 +32,7 @@ body {
 .lower .CodeMirror {
 	height: 200px;
 }
+
+.nav-tabs>li>a {
+  color: black !important;	
+}

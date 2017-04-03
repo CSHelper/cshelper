@@ -209,6 +209,27 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     },
 
     /**
+     * Check if a user is a tutor
+     *   (synchronous|asynchronous)
+     *
+     * @param  {Function|*} callback - optional, function(is)
+     * @return {Bool|Promise}
+     */
+    isTutor() {
+      return Auth.hasRole.apply(Auth, [].concat.apply(['tutor'], arguments));
+    },
+
+
+    /**
+     * Check if a user is an admin
+     *
+     * @return {Bool}
+     */
+    isTutorSync() {
+      return Auth.hasRoleSync('tutor');
+    },
+
+    /**
      * Get auth token
      *
      * @return {String} - a token string used for authenticating

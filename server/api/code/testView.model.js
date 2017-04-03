@@ -10,6 +10,6 @@ export default function(sequelize, DataTypes) {
     },
     inputs: DataTypes.JSON,
     expectedOutput: DataTypes.JSON,
-    functionName: DataTypes.STRING
+    isHidden: DataTypes.BOOLEAN
   });
 }

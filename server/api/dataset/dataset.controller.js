@@ -74,7 +74,8 @@ export function index(req, res) {
 export function show(req, res) {
   return Dataset.find({
     where: {
-      _id: req.params.id
+      _id: req.params.id,
+      isHidden: false
     }
   })
     .then(handleEntityNotFound(res))

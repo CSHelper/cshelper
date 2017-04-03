@@ -1,40 +1,323 @@
-<!-- User Welcome Jumbotron --> 
-<div class="container"> 
-  <div class="jumbotron">
-    <h1>Hello {{ mainCtrl.getCurrentUser().name || 'Guest'}}</h1> 
-    <p>Welcome to your CS Helper Homepage.</p>
-  </div>
-</div>
+<div class="header" style="background: url('../../assets/images/background.jpg') no-repeat fixed !important;">
+  <div class="bg-color">
 
+    <div class="wrapper">
 
-<div class="container">
-  <div class="jumbotron">
-    <h2>Programming Paths</h2>
-    <p></p>
-    <h4>Please select a programming language.</>
-    <p></p>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default" ng-repeat="language in mainCtrl.languages track by $index">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{'collapse' + $index}}" aria-expanded="true" aria-controls="{{'collapse' + $index}}">
-            {{language.name}}
-            </a>
-          </h4>
-        </div>
-        <div id="{{'collapse' + $index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <div class="list-group" ng-repeat="lesson in language.lessons">
-              <a href="" class="list-group-item active">
-                {{lesson.name}}
-              </a>
-              <a ui-sref="problems({id: 1})" class="list-group-item" ng-repeat="subLesson in lesson.subLessons">{{subLesson.name}}</a>
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="banner-info text-center wow fadeIn delay-05s">
+          <h1 class="bnr-title">Welcome to CS Helper</h1>
+          <br/>
+
+          <div>
+            <h2 class="bnr-sub-title" id="typewriter" style="display:inline"></h2>
+            
           </div>
+
+
+          <br/><br/>
+
+          <p class="bnr-para"> 
+            <strong>The CS Helper mission is to help programmers cultivate their current skill set while developing new<br> habbits and ways to think. New goals will be met and achievments will be conquered! </strong>
+          </p>
+          
+           
+          
+
+          <div class="brn-btn">
+            <a href="#" class="btn btn-download" style="background-color: #4899b1"><strong>Sign Up</strong></a>
+            <a href="#" class="btn btn-download" style="background-color: #5cb85c"><strong>Log In</strong></a>
+          </div>
+          <div class="overlay-detail">
+            <a href="#feature"><i class="fa fa-angle-down"></i></a>
+          </div>
+
+
+
         </div>
       </div>
-      
-      
+    </div>
     </div>
   </div>
 </div>
+
+<!--/ HEADER-->
+<!---->
+<section id="feature" class="section-padding wow fadeIn delay-05s">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="wrap-item text-center">
+        <div class="item-img">
+          <img src="assets/images/languages.png" width="64" height="64">
+        </div>
+        <h3 class="pad-bt15">Multiple Languages</h3>
+        <p>Our online educational platform accepts multiple languages, such as C, C++, and Java.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="wrap-item text-center">
+        <div class="item-img">
+          <img src="assets/images/ser02.png">
+        </div>
+        <h3 class="pad-bt15">Diverse Material</h3>
+        <p>Here at CS Helper, whether you are new to programming or have a previous foundation, we have problems for you to try!</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="wrap-item text-center">
+        <div class="item-img">
+          <img src="assets/images/graph.png" height="64" width="64">
+        </div>
+        <h3 class="pad-bt15">Statistics</h3>
+        <p>Our software keeps track of your attempts, fails, and completions in order to track your progress!</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="wrap-item text-center">
+        <div class="item-img">
+          <img src="assets/images/teacher1.png" height="64" width="64">
+        </div>
+        <h3 class="pad-bt15">Teacher Friendly</h3>
+        <p>We allow teachers to make new problems for our site, and assign to their students.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!---->
+<!---->
+
+<!---->
+<!---->
+<!---->
+<!---->
+<section id="portfolio" class="section-padding wow fadeInUp delay-05s">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2 class="service-title pad-bt15">Success Stories</h2>
+      <p class="sub-title pad-bt15">Below are stories from students and professionals who used our platform to cultivate their coding skills.</p>
+      <hr class="bottom-line">
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 portfolio-item padding-right-zero mr-btn-15">
+      <figure>
+        <img src="assets/images/stacey.jpg" width="1080" height="720" class="img-responsive">
+        <figcaption>
+            <h2>Stacey</h2>
+            <p>Hi, my name is Stacey and I am a sophomore at UCF studying Computer Science. CSHelper helps me keep up with what I am learning in class.</p>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 portfolio-item padding-right-zero mr-btn-15">
+      <figure>
+        <img src="assets/images/oscar.jpg" class="img-responsive">
+        <figcaption>
+            <h2>Oscar</h2>
+            <p>I'm Oscar, a former Engineering major, and I'm learning how to code in C++ to help my team with our current project.</p>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 portfolio-item padding-right-zero mr-btn-15">
+      <figure>
+        <img src="assets/images/Kevin.jpg" class="img-responsive">
+        <figcaption>
+            <h2>Kevin</h2>
+            <p>Being a Junior at SU, and working part time at CISCO, I'm trying to brush up on my coding skills. I plan to graduate next spring with my Computer Science degree.</p>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 portfolio-item padding-right-zero mr-btn-15">
+      <figure>
+        <img src="assets/images/adam.jpg" class="img-responsive">
+        <figcaption>
+            <h2>Adam</h2>
+            <p>This tool has helped me hone my C++ skills and begin learning C.  It is a great educational platform!</p>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 portfolio-item padding-right-zero mr-btn-15">
+      <figure>
+        <img src="assets/images/annie.jpg" class="img-responsive">
+        <figcaption>
+            <h2>Annie</h2>
+            <p>CSHelper has helped me stay ahead of my in-class material! I have been working with the tool for a month now and have progressed immensely.</p>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 portfolio-item padding-right-zero mr-btn-15">
+      <figure>
+        <img src="assets/images/steve.jpg" class="img-responsive">
+        <figcaption>
+            <h2>Steve</h2>
+            <p>What's up! I'm Steve, a Math major at USF, and I use CSHelper to help me build on my Java skills. It's a great tool led by great people!
+            </p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+</section>
+<!---->
+<!---->
+<section id="testimonial" class="wow fadeInUp delay-05s">
+<div class="bg-testicolor">
+  <div class="container section-padding">
+  <div class="row">
+    <div class="testimonial-item">
+      <ul class="bxslider">
+        <li>
+          <blockquote>
+            <img src="assets/images/teacher1.jpg" class="img-responsive">
+            <p>As a COSC117 teacher at SU I encourage this platform to all my students to keep up with my lectures. I see tremendous improvements in students that take advantage of this tool. </p>
+          </blockquote>
+          <small>Michelle Smith, Teacher</small>
+        </li>
+        <li>
+          <blockquote>
+            <img src="assets/images/teacher2.png" class="img-responsive">
+            <p>In order to ensure my students are keeping up, I assign homework on CSHelper. I can track student progress and assign problems accordingly. </p>
+          </blockquote>
+          <small>Steve Johnson, Teacher</small>
+        </li>
+        <li>
+          <blockquote>
+            <img src="assets/images/teacher3.png" class="img-responsive">
+            <p>My students like to use CSHelper to stay on top of the labs I assign. It allows them to practice what I assign and receive feedback.</p>
+          </blockquote>
+          <small>David Hopkins, Teacher</small>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  </div>
+</div>
+</section>
+<!---->
+<section id="blog" class="section-padding wow fadeInUp delay-05s">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2 class="service-title pad-bt15">Recommended Reads</h2>
+      <p class="sub-title pad-bt15">Below are books that we highly recommend for referencing while working with our platform.</p>
+      <hr class="bottom-line">
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="blog-sec">
+        <div class="blog-img">
+          <a href="https://www.amazon.com/Starting-Out-Java-Control-Structures/dp/0133957055/ref=sr_1_1?s=books&ie=UTF8&qid=1487266066&sr=1-1&refinements=p_lbr_one_browse-bin%3ATony+Gaddis" ">
+            <img src="assets/images/java.jpg" height="720" width="1080" class="img-responsive">
+          </a>
+        </div>
+        <div class="blog-info">
+          <h2>Starting Out with Java: From Control Structures through Objects</h2>
+          <div class="blog-comment">
+              <p>Views/Comments<span></span></p>
+              <p>
+                <span><a href="#"><i class="fa fa-comments"></i></a> 156</span>
+                <span><a href="#"><i class="fa fa-eye"></i></a> 117</span></p>
+          </div>
+          <p><br/>This book, written by Tony Gaddis, provides footsteps to learning Java.  It goes over the basics, and provides knowledge up to Objects.</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="blog-sec">
+        <div class="blog-img">
+          <a href="https://www.amazon.com/Starting-Out-Control-Structures-through/dp/0132772892">
+            <img src="assets/images/c++.jpg" width="72" class="img-responsive">
+          </a>
+        </div>
+        <div class="blog-info">
+          <h2>Starting Out with C++: From Control Structures through Objects, Brief Edition</h2>
+          <div class="blog-comment">
+              <p>Views/Comments<span></span></p>
+              <p>
+                <span><a href="#"><i class="fa fa-comments"></i></a> 127</span>
+                <span><a href="#"><i class="fa fa-eye"></i></a> 230</span></p>
+          </div>
+          <p><br/>This C++ book proves to be our foundational source for C++ questions. It contains strong educational content that will prove to be important to succeeding with C++.</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="blog-sec">
+        <div class="blog-img">
+          <a href="https://www.amazon.com/Programming-C-4th-Developers-Library/dp/0321776410/ref=sr_1_3?s=books&ie=UTF8&qid=1487266639&sr=1-3&keywords=C">
+            <img src="assets/images/C.jpg" height="100" width="100" class="img-responsive">
+          </a>
+        </div>
+        <div class="blog-info">
+          <h2>Programming in C (4th Edition) (Developer's Library) </br><br/> </h2>
+          <div class="blog-comment">
+              <p>Views/Comments<span></span></p>
+              <p>
+                <span><a href="#"><i class="fa fa-comments"></i></a> 86</span>
+                <span><a href="#"><i class="fa fa-eye"></i></a> 191</span>
+              </p>
+          </div>
+          <p><br/>When working with C, this book is perfect for you! We highly recommend when learning C to purchase this book as it will thrive your ability to achieve.</p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!---->
+<section id="contact" class="section-padding wow fadeInUp delay-05s">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center white">
+      <h2 class="service-title pad-bt15">Feel free to Contact Us!</h2>
+      <p class="sub-title pad-bt15">If you ever have any questions about our problems or are stuck on them,<br/> feel free to use our Contact Us and we will help you out!</p>
+      <hr class="bottom-line white-bg">
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="loction-info white">
+        <p><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i>1101 Camden Ave<br>Salisbury, MD 21804</p>
+        <p><i class="fa fa-envelope-o fa-fw pull-left fa-2x"></i>cshelper2016llc@gmail.com</p>
+        <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>+1 888 CSHELP</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="contact-form">
+          <div id="sendmessage">Your message has been sent. Thank you!</div>
+          <div id="errormessage"></div>
+          <form action="https://postmail.invotes.com/send" method="post" id="email_form" role="form" class="contactForm">
+              <div class="col-md-6 padding-right-zero">
+                  <div class="form-group">
+                      <input type="text" name="name" class="form-control" style="background-color: transparent;" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                      <div class="validation"></div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="email" class="form-control" name="email" id="email" style="background-color: transparent;" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                      <div class="validation"></div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <input type="text" class="form-control" name="subject" id="subject" style="background-color: transparent;" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                      <div class="validation"></div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                      <textarea class="form-control" name="message" rows="5" style="background-color: transparent;" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                      <div class="validation"></div>
+                  </div>
+                <button type="submit" class="btn btn-primary btn-submit">SEND NOW</button>
+              </div>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<script src="app/js/custom.js"></script>

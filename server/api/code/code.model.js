@@ -8,8 +8,11 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    fileExtension: DataTypes.STRING,
+    language: DataTypes.STRING(20),
     content: DataTypes.STRING,
-    isSuccess: DataTypes.BOOLEAN
+    isSuccess: DataTypes.BOOLEAN,
+    type: {
+      type: DataTypes.STRING(5)
+    }
   });
 }

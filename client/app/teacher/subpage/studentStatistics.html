@@ -1,0 +1,65 @@
+<div id="studentStatistics">
+	<div class="container-fluid">
+	      <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> Student Statistics</strong></a>
+	      <hr></hr>
+	      
+	      <div class="panel-tile">
+		      
+		      <span class="panel-header">Student Progress
+			      <span class="panel-subheader">Over Time</span>
+		      </span>
+		      
+	      
+		      <hr></hr>
+		      
+		      <!-- Stacked Area Time Graph -->
+		      <div id="time-graph" style="min-width: 310px; height: 300px; margin: 0 auto; "></div>
+	      </div>
+
+	      <div class="row">
+		      <!-- center left-->
+		      <div class="col-md-4">
+
+			      <div class="panel-tile">
+				      <span class="panel-header">Problem Attempts Overview</span>
+				      
+				      <hr></hr>
+				      
+				      <div id="pie-chart" style="height: 300px; max-width: 600px; margin: 0 auto"></div>
+			      </div> <!--/panel-->
+			      
+			      
+			      
+			      <div class="panel-tile">
+				      <span class="panel-header">Failed Questions</span>
+				      
+				      <hr></hr>
+
+				      <div class="list-group">
+					      <a href="#" class="list-group-item">If Statement</a>
+					      <a href="#" class="list-group-item">Literals</a>
+					      <a href="#" class="list-group-item">Break Statement</a>
+				      </div>
+			      </div>
+			      
+		      </div>
+		      
+		      <!--/col-->
+		      <div class="col-md-8">
+			      <div class="panel-tile">
+				      <span class="panel-header">Assignment Due Dates</span>
+				      
+				      <hr></hr>
+				      
+				      <div id='calendar'></div>
+			      </div>
+
+		      </div><!--/col-span-6-->
+
+	      </div><!--/row-->  
+	</div>
+</div>
+<!-- /Main -->	
+<script type="text/javascript">
+	loadCalendar();
+</script>

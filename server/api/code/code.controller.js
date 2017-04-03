@@ -14,6 +14,8 @@
 import jsonpatch from 'fast-json-patch';
 import {Code,TestView} from '../../sqldb';
 import {testC} from './languages/c';
+import {testPy} from './languages/python';
+import {testJS} from './languages/javascript';
 import bluebird from 'bluebird';
 
 Promise = bluebird;
@@ -92,50 +94,74 @@ export function show(req, res) {
 export function create(req, res) {
   let tmp;
   let dataSets;
+  let isRun = req.body.type === 'run';
+  let query = {
+    where: {
+      problemId: req.body.problemId,
+      isHidden: !isRun
+    }
+  };
+  let testFunc;
+  switch (req.body.language) {
+    case 'c':
+      testFunc = testC;
+      break;
+    case 'python2':
+    case 'python3':
+      testFunc = testPy;
+      break;
+    case 'javascript':
+      testFunc = testJS;
+      break;
+    default:
+      return handleError(res);
+  }
 
   // Find all test data
-  TestView.findAll({where: {problemId: req.body.code.id}})
+  TestView.findAll(query)
     .then(function (results) {
       // Do testing
       dataSets = results;
-      let tests = [];
-
-      for(let i = 0; i < dataSets.length; i++)
-        tests.push(testC(results[i], req.body.code));
-
-      console.log("findAll 1")
-
-      return Promise.all(tests);
+      return testFunc(dataSets, req);
     })
-    .then(function () {
-      // Check if all passed
-      let entry = req.body.code;
+    .then(function(tests) {
+      let entry = req.body;
       entry.isSuccess = true;
-      for (let i = 0; i < dataSets.length; i++) {
-        if(dataSets[i] !== true) {
-          entry.isSuccess = false;
-        }
-      }
-      
-      // Create try entry in database
 
-      console.log("findAll 2")
-
-      return Code.create(entry);
-    })
-    .then(function(){
       // Finalize result
       let results = [];
-      console.log(dataSets.length)
-      for (let i = 0; i < dataSets.length; i++) {
+      for (let i = 0; i < tests.length; i++) {
+        if(tests[i].isSuccess !== true) {
+          entry.isSuccess = false;
+        }
+
         let object = {
-          isSuccess: dataSets[i].isSuccess,
-          _id: dataSets[i]._id,
-          output: dataSets[i].output
+          isSuccess: tests[i].isSuccess,
+          _id: tests[i]._id,
+          output: tests[i].output
         };
         results.push(object);
       }
-      return res.json(results);
+
+      res.json({
+        isSuccess: entry.isSuccess,
+        tests: results
+      });
+
+      return Code.create(entry);
+    })
+    .catch(function (error) {
+      let entry = req.body;
+      entry.isSuccess = false;
+
+      return Code.create(entry)
+        .then(function () {
+          res
+            .status(400)
+            .json({
+              error: error.message
+            });
+        })
     })
     .catch(handleError(res));
 }

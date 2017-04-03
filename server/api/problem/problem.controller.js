@@ -119,14 +119,20 @@ export function show(req, res) {
         }
       })
     })
-    .then(function (results) {
-      //for (var i = 0; i < results.length; i++) {
-        //results[i].inputs = parse(results[i].inputs);
-        //results[i].expectedOutput = JSON.parse(results[i].expectedOutput);
-      //}
+    .then(function (tests) {
+      let cnt = 0;
+      let shownTests = [];
+      for (var i = 0; i < tests.length; i++) {
+        if (tests[i].isHidden) {
+          cnt += 1;
+        } else {
+          shownTests.push(tests[i]);
+        }
+      }
       
       return {
-        dataset: results,
+        numHiddenTests: cnt,
+        tests: shownTests,
         problem
       }
     })
@@ -144,7 +150,7 @@ export function create(req, res) {
       for (var i = req.body.testCases.length - 1; i >= 0; i--) {
         req.body.testCases[i].problemId = problem._id;
       };
-      return Dataset.bulkCreate(req.body.testCases)
+      return Dataset.bulkCreate(req.body.testCases);
     })
     .then(function () {
       if (req.body.assignees) {
@@ -158,6 +164,11 @@ export function create(req, res) {
           })
         };
         return Assignment.bulkCreate(assignment);
+      } else {
+        return new Promise((resolve, reject) => {
+          resolve("Success!");
+        });
+
       }
     })
     .then(respondWithResult(res, 201))

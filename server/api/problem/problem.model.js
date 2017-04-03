@@ -12,18 +12,9 @@ export default function(sequelize, DataTypes) {
       type: DataTypes.STRING(25),
       allowNull: false
     },
-    language: { 
-      type: DataTypes.STRING(10),
-      allowNull: false
-    },
     description: { 
       type: DataTypes.STRING,
       allowNull: false
-    },
-    functionName: { 
-      type: DataTypes.STRING,
-      allowNull: false
     }
-
   });
 }

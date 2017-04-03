@@ -45,6 +45,13 @@
 /* Component styles are injected through gulp */
 /* inject:css */
 @import 'admin/admin.css';
+@import 'css/animate.css';
+@import 'css/bootstrap.min.css';
+@import 'css/font-awesome.min.css';
+@import 'css/fullcalendar.css';
+@import 'css/jquery.bxslider.css';
+@import 'css/style-dashboard.css';
+@import 'css/style.css';
 @import 'main/main.css';
 @import 'manageStudents/manageStudents.css';
 @import 'problemCreation/problemCreation.css';
