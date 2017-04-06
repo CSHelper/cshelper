@@ -9,7 +9,7 @@ import 'angular-socket-io';
 
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
-import toastr from 'angular-toastr';
+//import toastr from 'angular-toastr';
 // import ngMessages from 'angular-messages';
 // import ngValidationMatch from 'angular-validation-match';
 
@@ -34,7 +34,7 @@ import ManageStudentsComponent from './manageStudents/manageStudents.component';
 import TeacherComponent from './teacher/teacher.component';
 import './app.css';
 
-angular.module('firstPresentationApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', toastr, 
+angular.module('firstPresentationApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', 
     uiRouter, uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util,
     ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent, 
     ProblemAddComponent
