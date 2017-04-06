@@ -2,120 +2,44 @@
 <div>
   <div class="row isTableRow">
       <div class="col-sm-2">  <!-- Student List Column -->
-        <div class="" style="background-color: rgba(64,75,97, 0.9); position: fixed; height: 100%">
-          <a href="#" style="color: white;"><strong><i class="glyphicon glyphicon-wrench"></i> Menu</strong></a>
+        <div class="nav-side-menu">
+            <div class="brand">Dashboard</div>
+            <!-- <i class="fa fa-bars fa-2x" data-target="#menu-content"></i> -->
+            <div class="menu-list">
+                <ul id="menu-content" class="menu-content collapse out">
+                    <li data-toggle="collapse" data-target="#students" class="collapsed">
+                        <a href="#"><i class="fa fa-users fa-lg"></i> Students <span class="arrow"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="students">
+                        <span class="input-group input-group-sm search-control nav-side-search">
+                          <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                          </span>
+                          <input type="text" class="form-control" placeholder="Name" ng-model="teacherCtrl.query"></input>
+                        </span>
 
-          <hr>
+                        <div ng-repeat="student in teacherCtrl.students | filter:teacherCtrl.query">
+                          <li data-toggle="collapse" data-target="#student_{{student._id}}" class="collapsed ">
+                            <a href="#">{{student.name}}</a>
+                          </li>
 
-          <ul class="nav nav-stacked menuHover">
-              <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu" style="color: white;">Student List<i class="glyphicon glyphicon-chevron-right"></i></a>
-                  <ul class="nav nav-stacked collapse menuHover" id="userMenu">
-                      <li class="active student"> <a href="#" data-toggle="collapse" data-target="#userOptions" style="color: white;"> <span style="color:white">-</span><i class="glyphicon glyphicon glyphicon-user"></i> Dustin Cox</a></li>
-                          <ul class="nav nav-stacked collapse menuHover" id="userOptions">
-                              <li class="active" id="problemAttempts"> <a href="#" style="color: white;"> <span style="color:white">---</span> Problem Attempts</a></li>
-                              <li class="active" id="studentStats"> <a href="#" style="color: white;"> <span style="color:white">---</span> Statistics</a></li>
+                          <ul class="sub-menu collapse" id="student_{{student._id}}" >
+                            <li ui-sref="teacher.studentStatistics({id:student._id})" class="nested-sub-menu">
+                              Statistics
+                            </li>
+
+                            <li class="nested-sub-menu" ui-sref="teacher.attempts({id:student._id})">
+                              Attempts
+                            </li>
                           </ul>
-                  </ul>
-              </li>
-              <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2" style="color: white;"> Reports <i class="glyphicon glyphicon-chevron-right"></i></a>
-
-                  <ul class="nav nav-stacked collapse glyphicon-chevron-down menuHover" id="menu2">
-                      <li id="classStatsButton"><a href="#" style="color: white;"> <span style="color:white">-</span> Class Statistics</a>
-                      </li>
-                      <li><a href="#" style="color: white;"> <span style="color:white">-</span> Alerts</a>
-                      </li>
-                  </ul>
-              </li>
-          </ul>
-
-          <hr>
-          </div>
+                        </div>
+                    </ul>
+                </ul>
+            </div>
+        </div>
       </div>
 
-  <div class="col-sm-10">
-    <div class="text-center" id="placeHolder">
-      <h1>
-        <span class="glyphicon glyphicon-th-list"></span><br/>
-        Select an item to view.
-      </h1>
-    </div>
-
-    <div id="statsDivs" style="display:none; height: 100%; width: 100%;"></div>
-
-    <div id="classStats" style="display:none;"></div>
-    
-    <div id="problemCreationDiv" style="display:none;"></div>
-
-    <div id="problemAttemptsDiv" style="display:none;"></div>
+  <div class="col-sm-10 container">
+    <div ui-view></div>
   </div>
 </div>
-
-<script>
-  //shows the student attempt divs and removes the other divs
-  var studentAtts = document.getElementById('problemAttempts');
-  studentAtts.onclick = function() 
-  {
-      var atts = document.getElementById("problemAttemptsDiv");
-      var studStats = document.getElementById('statsDivs');
-      var classStats = document.getElementById('classStats');
-      var problemCreation = document.getElementById('problemCreationDiv');
-      var placeHold = document.getElementById('placeHolder');
-      if (atts.style.display == 'none') 
-      {
-          atts.style.display = 'block';
-          studStats.style.display = 'none';
-          classStats.style.display = 'none';
-          placeHolder.style.display = 'none';
-          problemCreation.style.display = 'none';
-          $("#problemAttemptsDiv").load("app/teacher/subpage/problemAttempts.html", function(){
-            loadProblems();
-          });
-      }
-  };
-
-  //shows the student stats divs and removes the other divs
-  var studStatsButton = document.getElementById('studentStats');
-  studStatsButton.onclick = function() 
-  {
-      var studStats = document.getElementById('statsDivs');
-      var atts = document.getElementById("problemAttemptsDiv");
-      var classStats = document.getElementById('classStats');
-      var placeHold = document.getElementById('placeHolder');
-      var problemCreation = document.getElementById('problemCreationDiv');
-      if (studStats.style.display == 'none')
-      {
-          studStats.style.display = 'block';
-          atts.style.display = 'none';
-          classStats.style.display = 'none';
-          placeHolder.style.display = 'none';
-          problemCreation.style.display = 'none';
-          $("#statsDivs").load("app/teacher/subpage/studentStatistics.html", function(){
-            loadStudentStatistics();
-          });
-      }
-  };
-
-  //shows full class stats and removes other divs
-  var fullStats = document.getElementById("classStatsButton");
-  fullStats.onclick = function()
-  {
-      var studStats = document.getElementById('statsDivs');
-      var atts = document.getElementById("problemAttemptsDiv");
-      var classStats = document.getElementById('classStats');
-      var placeHold = document.getElementById('placeHolder');
-      var problemCreation = document.getElementById('problemCreationDiv');
-      if(classStats.style.display == 'none')
-      {
-        classStats.style.display = 'block';
-        studStats.style.display = 'none';
-        
-        atts.style.display = 'none';
-        placeHolder.style.display = 'none';
-        problemCreation.style.display = 'none';
-        $("#classStats").load("app/teacher/subpage/classStatistics.html", function(){
-          loadClassStatistics();
-        }); 
-      }
-  };
-
-</script>

@@ -9,14 +9,7 @@ export class ManageStudentsComponent {
   /*@ngInject*/
   constructor($http) {
     'ngInject';
-    this.message = 'Hello';
-    var self = this;
-    $http.get('/api/tutorStudents/' + 6)
-    .then(function (res) {
-      //self.init(res.data);
-      self.students = res.data;
-      console.log(res)
-    });
+    
   }
 }
 

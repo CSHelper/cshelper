@@ -1,4 +1,4 @@
-function loadStudentStatistics(){
+function loadStudentStatistics(graphSeries, piechartSeries){
 	//Time Graph
 	Highcharts.chart('time-graph', {
 	    chart: {
@@ -42,16 +42,7 @@ function loadStudentStatistics(){
 	            }
 	        }
 	    },
-	    series: [{
-	        name: 'In Progress',
-	        data: [3, 2, 1, 1, 2, 3, 0, 0, 2, 1, 0, 1]
-	    }, {
-	        name: 'Failed',
-	        data: [1, 2, 2, 4, 7, 8, 9, 7, 0, 2, 5, 5]
-	    }, {
-	        name: 'Completed',
-	        data: [1, 2, 3, 3, 1, 0, 1, 1, 0, 0, 3, 3]
-	    }]
+	    series: graphSeries
 	});
 
 
@@ -81,21 +72,6 @@ function loadStudentStatistics(){
 				showInLegend: true
 			}
 		},
-		series: [{
-			name: 'Problems',
-			colorByPoint: true,
-			data: [{
-				name: 'In Progress',
-				y: 60
-			}, {
-				name: 'Failed',
-				y: 10,
-				sliced: true,
-				selected: true
-			}, {
-				name: 'Completed',
-				y: 30
-			}]
-		}]
+		series: piechartSeries
 	});
 }

@@ -6,7 +6,7 @@ import spawnSync from 'spawn-sync';
 
 
 Promise = bluebird;
-Promise.promisifyAll(fs);
+bluebird.promisifyAll(fs);
 
 export function testC(testData, req) {
   const filePath = write(req.body.content, 'c', req.user._id);
