@@ -101,21 +101,15 @@ function createProlems() {
       return Problem.bulkCreate([{
         _id: 1,
         title: 'Addition',
-        language: 'c',
-        description: 'Create code to add two integers together and produce expectedOutput',
-        functionName: 'addition'
+        description: 'Create code to add two integers together and produce expectedOutput'
       },{
         _id: 2,
         title: 'Subtraction',
-        language: 'c',
-        description: 'Create code to subtract two integers together and produce expectedOutput',
-        functionName: 'subtraction'
+        description: 'Create code to subtract two integers together and produce expectedOutput'
       },{
         _id: 3,
         title: 'Multiplication',
-        language: 'c',
-        description: 'Create code to multiply two integers together and produce expectedOutput',
-        functionName: 'multiply'
+        description: 'Create code to multiply two integers together and produce expectedOutput'
       }])
     })
     .then(() => {
@@ -182,7 +176,6 @@ function createProlems() {
             inputs: "2 3",
             expectedOutput: "5",
             problemId: 1
-
           },{
             inputs: "1 2",
             expectedOutput: "3",

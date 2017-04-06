@@ -8,10 +8,10 @@ export default function($stateProvider) {
       template: '<teacher></teacher>',
       authenticate: 'student'
     })
-    // .state('teacher.classStatistics', {
-    //   url: '/classStatistics',
-    //   template: '<class-statistics></class-statistics>'
-    // })
+    .state('teacher.classStatistics', {
+      url: '/classStatistics?id',
+      template: '<class></class>'
+    })
     .state('teacher.attempts', {
       url: '/attempts?:id',
       template: '<attempts></attempts>'

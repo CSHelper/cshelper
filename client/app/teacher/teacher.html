@@ -35,6 +35,40 @@
                         </div>
                     </ul>
                 </ul>
+
+                <ul id="menu-content" class="menu-content collapse out">
+                    <li data-toggle="collapse" data-target="#classes" class="collapsed">
+                        <a href="#"><i class="fa fa-users fa-lg"></i> Classes <span class="arrow"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="classes">
+                        <span class="input-group input-group-sm search-control nav-side-search">
+                          <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                          </span>
+                          <input type="text" class="form-control" placeholder="Name" ng-model="teacherCtrl.classquery"></input>
+                        </span>
+
+                        <li data-toggle="collapse" data-target="#class_{{student._id}}" ui-sref="teacher.classStatistics({id:student._id})" class="collapsed ">
+                          <a href="#">COSC117</a>
+                        </li>
+
+                        <!-- <div ng-repeat="student in teacherCtrl.students | filter:teacherCtrl.query">
+                          <li data-toggle="collapse" data-target="#student_{{student._id}}" class="collapsed ">
+                            <a href="#">{{student.name}}</a>
+                          </li>
+
+                          <ul class="sub-menu collapse" id="student_{{student._id}}" >
+                            <li ui-sref="teacher.studentStatistics({id:student._id})" class="nested-sub-menu">
+                              Statistics
+                            </li>
+
+                            <li class="nested-sub-menu" ui-sref="teacher.attempts({id:student._id})">
+                              Attempts
+                            </li>
+                          </ul>
+                        </div> -->
+                    </ul>
+                </ul>
             </div>
         </div>
       </div>

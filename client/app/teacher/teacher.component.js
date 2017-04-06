@@ -23,6 +23,10 @@ export class TeacherComponent {
       });
   }
 
+  initClassStats() {
+    loadClassStatistics();
+  }
+
   initStatistic() {
     this.loadStatistics();
     this.loadCalendar();
@@ -117,7 +121,7 @@ export default angular.module('cshelperApp.teacher', [uiRouter])
     controller: TeacherComponent,
     controllerAs: 'teacherCtrl'
   })
-  .component('class-statistics', {
+  .component('class', {
     template: require('./subpage/classStatistics.html'),
     controller: TeacherComponent,
     controllerAs: 'teacherCtrl'
