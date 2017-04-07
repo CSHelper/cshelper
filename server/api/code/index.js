@@ -8,6 +8,7 @@ import * as auth from '../../auth/auth.service';
 
 router.get('/', auth.isAuthenticated(), controller.index);
 router.get('/:id', auth.isAuthenticated(), controller.show);
+router.get('/student/:id', auth.hasRole('tutor'), controller.getStudentStats);
 router.post('/', auth.isAuthenticated(), controller.create);
 router.put('/:id', auth.isAuthenticated(), controller.upsert);
 router.patch('/:id', auth.isAuthenticated(), controller.patch);

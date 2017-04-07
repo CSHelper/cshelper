@@ -16,13 +16,11 @@ module.exports = {
 
   sequelize: {
     uri: process.env.SEQUELIZE_URI
-      || 'sqlite://',
+      || 'CSHelper',
+    username: 'newuser',
+    password: 'cshelper',
     options: {
-      logging: false,
-      storage: 'dist.sqlite',
-      define: {
-        timestamps: false
-      }
+      logging: false
     }
   }
 };

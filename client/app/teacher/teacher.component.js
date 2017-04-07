@@ -7,12 +7,26 @@ import routes from './teacher.routes';
 
 export class TeacherComponent {
   /*@ngInject*/
-  constructor($http) {
+  constructor($http, $state, Auth) {
     'ngInject';
 
+    this.Auth = Auth;
     this.$http = $http;
+    this.$state = $state;
+    let self = this;
 
-    this.initTutor();
+    Auth.getCurrentUser(function (user) {
+      self.user = user;
+      console.log(self.user.role);
+      if (self.user.role === 'student')
+        console.log();
+      else
+        self.initTutor();
+    });
+  }
+
+  initStudent() {
+
   }
 
   initTutor() {
@@ -23,16 +37,58 @@ export class TeacherComponent {
       });
   }
 
+  initAttempts() {
+    this.currentProblem = -1;
+    var self = this;
+    this.$http.get('/api/codes/student/' + this.$state.params.userId)
+      .then(function (res) {
+        self.problems = [];
+        let problem = {
+          title: res.data[0].title,
+          attempts: []
+        };
+
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].isSuccess) {
+            res.data[i].class = 'fa-check success';
+          } else {
+            res.data[i].class = 'fa-times fail';
+          }
+
+          if (res.data[i].title !== problem.title) {
+            self.problems.push(problem);
+            problem = {
+              title: res.data[i].title,
+              attempts: []
+            };
+          }
+
+          problem.attempts.push(res.data[i]);
+        }
+        self.problems.push(problem);
+      });
+  }
+
   initClassStats() {
     loadClassStatistics();
   }
 
   initStatistic() {
+    this.$http.get('/api/users/students')
+      .then(function (res) {
+        self.students = res.data;
+      });
+
     this.loadStatistics();
     this.loadCalendar();
   }
 
   loadStatistics() {
+    this.$http.get('/api/codes/student/' + this.$state.params.userId)
+      .then(function (res) {
+        console.log(res.data);
+      });
+
     let series1 = [{
       name: 'In Progress',
       data: [3, 2, 1, 1, 2, 3, 0, 0, 2, 1, 0, 1]

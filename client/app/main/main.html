@@ -22,12 +22,15 @@
           </p>
           
            
-          
-
-          <div class="brn-btn">
-            <a href="#" class="btn btn-download" style="background-color: #4899b1"><strong>Sign Up</strong></a>
-            <a href="#" class="btn btn-download" style="background-color: #5cb85c"><strong>Log In</strong></a>
+          <div class="brn-btn" ng-show="!mainCtrl.Auth.isLoggedInSync()">
+            <a ui-sref="signup" class="btn btn-download" style="background-color: #4899b1"><strong>Sign Up</strong></a>
+            <a ui-sref="login" class="btn btn-download" style="background-color: #5cb85c"><strong>Log In</strong></a>
           </div>
+
+          <div class="brn-btn" ng-show="mainCtrl.Auth.isLoggedInSync()">
+            <a ui-sref="teacher" class="btn btn-download" style="background-color: #4899b1"><strong>Go to Dashboard</strong></a>
+          </div>
+
           <div class="overlay-detail">
             <a href="#feature"><i class="fa fa-angle-down"></i></a>
           </div>

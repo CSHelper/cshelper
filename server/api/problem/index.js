@@ -5,7 +5,7 @@ var controller = require('./problem.controller');
 
 var router = express.Router();
 
-router.get('/', auth.hasRole('tutor'), controller.index);
+router.get('/', auth.isAuthenticated(), controller.index);
 router.get('/:id', controller.show);
 router.post('/', auth.hasRole('tutor'), controller.create);
 router.put('/:id', auth.hasRole('tutor'), controller.upsert);

@@ -7,13 +7,12 @@ module.exports = {
 
   // Sequelize connection opions
   sequelize: {
-    uri: 'sqlite://',
+    uri: process.env.SEQUELIZE_URI
+      || 'dev',
+    username: 'newuser',
+    password: 'cshelper',
     options: {
-      logging: false,
-      storage: 'dev.sqlite',
-      define: {
-        timestamps: false
-      }
+      logging: false
     }
   },
 

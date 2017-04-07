@@ -50,7 +50,7 @@ export function getStudents(req, res) {
       'email'
     ],
     where: {
-      role: 'student'
+      // role: 'student'
     }
   })
     .then(users => {

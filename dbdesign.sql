@@ -57,7 +57,7 @@ CREATE TABLE `Assignments` (
   CONSTRAINT `Assignments_ibfk_1` FOREIGN KEY (`assigneeId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `Assignments_ibfk_2` FOREIGN KEY (`assignerId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `Assignments_ibfk_3` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2339 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2903 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,13 +76,13 @@ CREATE TABLE `Codes` (
   `updatedAt` datetime NOT NULL,
   `userId` int(11) DEFAULT NULL,
   `problemId` int(11) DEFAULT NULL,
-  `type` varchar(5) DEFAULT NULL,
+  `isSubmit` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`_id`),
   KEY `userId` (`userId`),
   KEY `problemId` (`problemId`),
   CONSTRAINT `Codes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `Codes_ibfk_2` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=297 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=366 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +119,7 @@ CREATE TABLE `Datasets` (
   PRIMARY KEY (`_id`),
   KEY `problemId` (`problemId`),
   CONSTRAINT `Datasets_ibfk_1` FOREIGN KEY (`problemId`) REFERENCES `Problems` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=926 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1302 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +136,7 @@ CREATE TABLE `Problems` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +155,7 @@ CREATE TABLE `Sessions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `sid` (`sid`),
   UNIQUE KEY `Sessions_sid_unique` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `TutorStudents` (
   KEY `studentId` (`studentId`),
   CONSTRAINT `TutorStudents_ibfk_1` FOREIGN KEY (`tutorId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `TutorStudents_ibfk_2` FOREIGN KEY (`studentId`) REFERENCES `Users` (`_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1676 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1911 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,6 +247,26 @@ SET character_set_client = utf8;
  1 AS `studentEmail`,
  1 AS `studentId`,
  1 AS `tutorId`,
+ 1 AS `createdAt`,
+ 1 AS `updatedAt`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `UserCodeViews`
+--
+
+DROP TABLE IF EXISTS `UserCodeViews`;
+/*!50001 DROP VIEW IF EXISTS `UserCodeViews`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `UserCodeViews` AS SELECT 
+ 1 AS `_id`,
+ 1 AS `title`,
+ 1 AS `userId`,
+ 1 AS `problemId`,
+ 1 AS `isSuccess`,
+ 1 AS `content`,
+ 1 AS `language`,
  1 AS `createdAt`,
  1 AS `updatedAt`*/;
 SET character_set_client = @saved_cs_client;
@@ -274,7 +294,7 @@ CREATE TABLE `Users` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`_id`),
   UNIQUE KEY `Users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2751 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=371 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,6 +350,24 @@ CREATE TABLE `Users` (
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `UserCodeViews`
+--
+
+/*!50001 DROP VIEW IF EXISTS `UserCodeViews`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`newuser`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `UserCodeViews` AS select `Codes`.`_id` AS `_id`,`Problems`.`title` AS `title`,`Codes`.`userId` AS `userId`,`Codes`.`problemId` AS `problemId`,`Codes`.`isSuccess` AS `isSuccess`,`Codes`.`content` AS `content`,`Codes`.`language` AS `language`,`Codes`.`createdAt` AS `createdAt`,`Codes`.`updatedAt` AS `updatedAt` from (`Codes` join `Problems`) where (`Problems`.`_id` = `Codes`.`problemId`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -340,4 +378,4 @@ CREATE TABLE `Users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-03  0:52:38
+-- Dump completed on 2017-04-06 23:05:39

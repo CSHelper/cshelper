@@ -8,9 +8,11 @@ import path from 'path';
 import config from '../config/environment';
 import Sequelize from 'sequelize';
 
+const sequelizeOpts = config.sequelize;
+
 var db = {
   Sequelize,
-  sequelize: new Sequelize('TMP', 'newuser', 'cshelper', {logging: false})
+  sequelize: new Sequelize(sequelizeOpts.uri, sequelizeOpts.username, sequelizeOpts.password, sequelizeOpts.options)
 };
 
 // Insert models below
@@ -24,6 +26,7 @@ db.Code = db.sequelize.import('../api/code/code.model');
 db.Thing = db.sequelize.import('../api/thing/thing.model');
 db.User = db.sequelize.import('../api/user/user.model');
 db.TestView = db.sequelize.import('../api/code/testView.model');
+db.UserCodeView = db.sequelize.import('../api/code/userCodeView.model');
 
 db.Dataset.belongsTo(db.Problem, {foreignKey: 'problemId', targetKey: '_id'});
 

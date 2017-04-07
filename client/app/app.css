@@ -1,5 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~bootstrap-social/bootstrap-social.css';
+@import '~angularjs-datepicker/dist//angular-datepicker.css';
 @import '../assets/css/jquery.bxslider.css';
 @import '../assets/css/animate.css';
 @import '../assets/css/fullcalendar.css';

@@ -101,12 +101,11 @@ export class ProblemsComponent {
     for (let i = 0; i < self.hiddenTests.length; i++) {
       self.tests[i].class = 'fa-clock-o'
     }
-    let promise = this.sendCode('r');
+    let promise = this.sendCode(false);
 
     if (promise) {
       promise
         .then(function (res) {
-          console.log(res);
           for (let i = 0; i < res.data.tests.length; i++) {
             self.tests[i].isSuccess = res.data.tests[i].isSuccess;
             self.tests[i].output = res.data.tests[i].output;
@@ -114,7 +113,6 @@ export class ProblemsComponent {
           self.updateIcons(self.tests);
         })
         .catch(function (error) {
-          console.log(error);
           for (let i = 0; i < self.tests.length; i++) {
             self.tests[i].isSuccess = false;
             self.tests[i].output = error.data.error;
@@ -130,24 +128,26 @@ export class ProblemsComponent {
       self.hiddenTests[i].class = 'fa-clock-o'
     }
 
-    let promise = this.sendCode('s');
+    let promise = this.sendCode(true);
 
     if (promise) {
-      promise.then(function (res) {
-        for (let i = 0; i < res.data.tests.length; i++) {
-          self.hiddenTests[i].isSuccess = res.data.tests[i].isSuccess;
-
-          if (self.hiddenTests[i].isSuccess) {
-            self.hiddenTests[i].class = 'fa-check success';
-          } else {
-            self.hiddenTests[i].class = 'fa-times fail';
+      promise
+        .then(function (res) {
+          for (let i = 0; i < res.data.tests.length; i++) {
+            self.hiddenTests[i].isSuccess = res.data.tests[i].isSuccess;
           }
-        }
-      });
+          self.updateIcons(self.hiddenTests);
+        })
+        .catch(function (error) {
+          for (let i = 0; i < self.tests.length; i++) {
+            self.hiddenTests[i].isSuccess = false;
+          }
+          self.updateIcons(self.hiddenTests);
+        });
     }
   }
 
-  sendCode(type) {
+  sendCode(isSubmit) {
     let self = this;
     self.isProcessing = true;
 
@@ -155,9 +155,9 @@ export class ProblemsComponent {
       problemId: this.id,
       content: this.editor.getValue(), 
       language: $('#languageSelector').find('option:selected').text().toLowerCase(),
-      type
+      isSubmit
     }
-
+    console.log(data);
     if(this.editor.getValue()) {
       return this.$http.post('/api/codes', data)
         .then(function(res) {

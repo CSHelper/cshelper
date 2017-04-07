@@ -9,15 +9,15 @@ export default function($stateProvider) {
       authenticate: 'student'
     })
     .state('teacher.classStatistics', {
-      url: '/classStatistics?id',
+      url: '/classStatistics?userId',
       template: '<class></class>'
     })
     .state('teacher.attempts', {
-      url: '/attempts?:id',
+      url: '/attempts?:userId',
       template: '<attempts></attempts>'
     })
     .state('teacher.studentStatistics', {
-      url: '/studentStatistics?:id',
+      url: '/studentStatistics?:userId',
       template: '<stats></stats>'
     });
 }

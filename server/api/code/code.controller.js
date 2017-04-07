@@ -2,7 +2,7 @@
  * Using Rails-like standard naming convention for endpoints.
  * GET     /api/codes              ->  index
  * POST    /api/codes              ->  create
- * POST    /api/codes/run          ->  run
+ * GET     /api/codes/student/:id  ->  getStudentStats
  * GET     /api/codes/:id          ->  show
  * PUT     /api/codes/:id          ->  upsert
  * PATCH   /api/codes/:id          ->  patch
@@ -12,7 +12,7 @@
 'use strict';
 
 import jsonpatch from 'fast-json-patch';
-import {Code,TestView} from '../../sqldb';
+import {Code, TestView, UserCodeView} from '../../sqldb';
 import {testC} from './languages/c';
 import {testPy} from './languages/python';
 import {testJS} from './languages/javascript';
@@ -94,13 +94,13 @@ export function show(req, res) {
 export function create(req, res) {
   let tmp;
   let dataSets;
-  let isRun = req.body.type === 'run';
   let query = {
     where: {
       problemId: req.body.problemId,
-      isHidden: !isRun
+      isHidden: !req.body.isSubmit
     }
   };
+  console.log(req.body);
   let testFunc;
   switch (req.body.language) {
     case 'c':
@@ -114,8 +114,13 @@ export function create(req, res) {
       testFunc = testJS;
       break;
     default:
-      return handleError(res);
+      return res
+            .status(400)
+            .json({
+              error: req.body.language + ' is not supported.'
+            });
   }
+  let returnData; 
 
   // Find all test data
   TestView.findAll(query)
@@ -126,6 +131,7 @@ export function create(req, res) {
     })
     .then(function(tests) {
       let entry = req.body;
+      entry.userId = req.user._id;
       entry.isSuccess = true;
 
       // Finalize result
@@ -143,15 +149,18 @@ export function create(req, res) {
         results.push(object);
       }
 
-      res.json({
+      returnData = {
         isSuccess: entry.isSuccess,
         tests: results
-      });
-
+      }
       return Code.create(entry);
+    })
+    .then(function () {
+      return res.json(returnData);
     })
     .catch(function (error) {
       let entry = req.body;
+      entry.userId = req.user._id;
       entry.isSuccess = false;
 
       return Code.create(entry)
@@ -209,11 +218,15 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
-// Run code
-export function run(req, res) {
-  return Code.create(entry)
-    .then(function(){
-      
-    })
+export function getStudentStats(req, res) {
+  return UserCodeView.findAll({
+    where: {
+      userId: req.params.id
+    },
+    order: [
+      ['problemId', 'DESC']
+    ]
+  })
+    .then(respondWithResult(res))
+    .catch(handleError(res));
 }
-

@@ -7,7 +7,7 @@
         <th>Title</th>
         <th>Assigner</th>
         <th>Assignee</th>
-        <th>Complete rate</th>
+        <!-- <th>Complete rate</th> -->
         <th>Due date</th>
       </tr>
     </thead>
@@ -17,7 +17,7 @@
         <td><a ui-sref="problems.id({id: problem._id})">{{problem.title}}</a></td>
         <td>{{problem.assignTo[0].assignerName}}</td>
         <td><a ng-repeat="assignee in problem.assignTo">{{assignee.assigneeName}}, </a></td>
-        <td>70%</td>
+        <!-- <td>70%</td> -->
         <td>{{problem.deadline}}</td>
       </tr>
     </tbody>

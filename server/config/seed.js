@@ -5,11 +5,15 @@
 
 'use strict';
 import sqldb from '../sqldb';
-let User = sqldb.User;
-let Problem = sqldb.Problem;
-let DataSet = sqldb.Dataset;
-let TutorStudent = sqldb.TutorStudent;
-let Assignment = sqldb.Assignment;
+const User = sqldb.User;
+const Problem = sqldb.Problem;
+const DataSet = sqldb.Dataset;
+const TutorStudent = sqldb.TutorStudent;
+const Assignment = sqldb.Assignment;
+const Code = sqldb.Code;
+
+Code.sync()
+  .then(() => Code.destroy({ where: {} }))
 
 User.sync()
   .then(() => User.destroy({ where: {} }))
@@ -214,6 +218,4 @@ function createProlems() {
         });
 
       });
-
-    
 }

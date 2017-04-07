@@ -7,10 +7,9 @@ const uiRouter = require('angular-ui-router');
 
 export class ProblemAddComponent {
   /*@ngInject*/
-  constructor($http, $state, toastr) {
+  constructor($http, $state) {
     this.$http = $http;
     this.$state = $state;
-    this.toastr = toastr;
     this.testCases = [];
     this.addTestCase();
     this.description = '';
@@ -42,20 +41,19 @@ export class ProblemAddComponent {
   }
 
   submit() {
-    console.log('hi');
     let problem = {
       testCases: this.testCases,
       description: this.description,
-      language: this.language || 'c',
       title: this.title,
-      assignees: this.assignees
+      assignees: this.assignees,
+      dueDate: (new Date(this.dueDate)).toISOString().substring(0, 19).replace('T', ' ')
     };
-
-    let self = this;
-    this.$http.post('/api/problems', problem)
-      .then(function(res) {
-        self.$state.go('problems.all');
-      });
+    console.log(problem);
+    // let self = this;
+    // this.$http.post('/api/problems', problem)
+    //   .then(function(res) {
+    //     self.$state.go('problems.all');
+    //   });
   }
 }
 

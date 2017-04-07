@@ -5,50 +5,53 @@
         <div class="nav-side-menu">
             <div class="brand">Dashboard</div>
             <!-- <i class="fa fa-bars fa-2x" data-target="#menu-content"></i> -->
-            <div class="menu-list">
+            
+            <!-- Teach dashboard -->
+            <div class="menu-list" ng-hide="teacherCtrl.user.role === 'student'">
                 <ul id="menu-content" class="menu-content collapse out">
-                    <li data-toggle="collapse" data-target="#students" class="collapsed">
-                        <a href="#"><i class="fa fa-users fa-lg"></i> Students <span class="arrow"></span></a>
-                    </li>
-                    <ul class="sub-menu collapse" id="students">
-                        <span class="input-group input-group-sm search-control nav-side-search">
-                          <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-search"></span>
-                          </span>
-                          <input type="text" class="form-control" placeholder="Name" ng-model="teacherCtrl.query"></input>
+                    
+                  <li data-toggle="collapse" data-target="#students" class="collapsed">
+                      <a href="#"><i class="fa fa-users fa-lg"></i> Students<span class="arrow"></span></a>
+                  </li>
+                  <ul class="sub-menu collapse" id="students">
+                      <span class="input-group input-group-sm search-control nav-side-search">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-search"></span>
                         </span>
+                        <input type="text" class="form-control" placeholder="Student Name" ng-model="teacherCtrl.query">
+                      </span>
 
-                        <div ng-repeat="student in teacherCtrl.students | filter:teacherCtrl.query">
-                          <li data-toggle="collapse" data-target="#student_{{student._id}}" class="collapsed ">
-                            <a href="#">{{student.name}}</a>
+                      <div ng-repeat="student in teacherCtrl.students | filter:teacherCtrl.query">
+                        <li data-toggle="collapse" data-target="#student_{{student._id}}" class="collapsed ">
+                          <a href="#">{{student.name}}</a>
+                        </li>
+
+                        <ul class="sub-menu collapse" id="student_{{student._id}}" >
+                          <li ui-sref="teacher.studentStatistics({userId:student._id})" class="nested-sub-menu">
+                            Statistics
                           </li>
 
-                          <ul class="sub-menu collapse" id="student_{{student._id}}" >
-                            <li ui-sref="teacher.studentStatistics({id:student._id})" class="nested-sub-menu">
-                              Statistics
-                            </li>
-
-                            <li class="nested-sub-menu" ui-sref="teacher.attempts({id:student._id})">
-                              Attempts
-                            </li>
-                          </ul>
-                        </div>
+                          <li class="nested-sub-menu" ui-sref="teacher.attempts({userId:student._id})">
+                            Attempts
+                          </li>
+                        </ul>
+                      </div>
                     </ul>
                 </ul>
 
                 <ul id="menu-content" class="menu-content collapse out">
                     <li data-toggle="collapse" data-target="#classes" class="collapsed">
-                        <a href="#"><i class="fa fa-users fa-lg"></i> Classes <span class="arrow"></span></a>
+                        <a href="#"><i class="fa fa-graduation-cap fa-lg"></i> Classes <span class="arrow"></span></a>
                     </li>
                     <ul class="sub-menu collapse" id="classes">
                         <span class="input-group input-group-sm search-control nav-side-search">
                           <span class="input-group-addon">
                             <span class="glyphicon glyphicon-search"></span>
                           </span>
-                          <input type="text" class="form-control" placeholder="Name" ng-model="teacherCtrl.classquery"></input>
+                          <input type="text" class="form-control" placeholder="Name" ng-model="teacherCtrl.classquery">
                         </span>
 
-                        <li data-toggle="collapse" data-target="#class_{{student._id}}" ui-sref="teacher.classStatistics({id:student._id})" class="collapsed ">
+                        <li data-toggle="collapse" data-target="#class_{{student._id}}" ui-sref="teacher.classStatistics({userId:student._id})" class="collapsed ">
                           <a href="#">COSC117</a>
                         </li>
 
@@ -58,11 +61,11 @@
                           </li>
 
                           <ul class="sub-menu collapse" id="student_{{student._id}}" >
-                            <li ui-sref="teacher.studentStatistics({id:student._id})" class="nested-sub-menu">
+                            <li ui-sref="teacher.studentStatistics({userId:student._id})" class="nested-sub-menu">
                               Statistics
                             </li>
 
-                            <li class="nested-sub-menu" ui-sref="teacher.attempts({id:student._id})">
+                            <li class="nested-sub-menu" ui-sref="teacher.attempts({userId:student._id})">
                               Attempts
                             </li>
                           </ul>
@@ -70,6 +73,22 @@
                     </ul>
                 </ul>
             </div>
+
+            <!-- Student dashboard -->
+            <div class="menu-list" ng-show="teacherCtrl.user.role === 'student'">
+              <ul id="menu-content" class="menu-content collapse out">
+                  
+                <li ui-sref="teacher.studentStatistics({userId:teacherCtrl.user._id})" class="nested-sub-menu">
+                  Statistics
+                </li>
+
+                <li class="nested-sub-menu" ui-sref="teacher.attempts({userId:teacherCtrl.user._id})">
+                  Attempts
+                </li>
+
+              </ul>
+            </div>
+              
         </div>
       </div>
 

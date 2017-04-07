@@ -8,11 +8,23 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    language: DataTypes.STRING(20),
-    content: DataTypes.STRING,
-    isSuccess: DataTypes.BOOLEAN,
-    type: {
-      type: DataTypes.STRING(5)
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    language: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    isSuccess: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    isSubmit: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   });
 }

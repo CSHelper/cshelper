@@ -9,13 +9,12 @@ module.exports = {
     uri: 'mongodb://localhost/firstpresentation-test'
   },
   sequelize: {
-    uri: 'sqlite://',
+    uri: process.env.SEQUELIZE_URI
+      || 'mysql://localhost:3306/test',
+    username: 'newuser',
+    password: 'cshelper',
     options: {
-      logging: false,
-      storage: 'test.sqlite',
-      define: {
-        timestamps: false
-      }
+      logging: false
     }
   }
 };

@@ -145,11 +145,17 @@ HEADER
     font-size: 14px;
     line-height: 54px;
     font-weight: 400;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     background: transparent;
     color: #fff;
     -webkit-transition: color 0.2s ease-out;
     transition: color 0.2s ease-out;
+}
+
+.navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a
+{
+    background-color: #515B6F
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
     color: #be9e21;
