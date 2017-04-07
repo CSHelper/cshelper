@@ -46,14 +46,14 @@ export class ProblemAddComponent {
       description: this.description,
       title: this.title,
       assignees: this.assignees,
-      dueDate: (new Date(this.dueDate)).toISOString().substring(0, 19).replace('T', ' ')
+      dueDate: this.dueDate ? (new Date(this.dueDate)).toISOString().substring(0, 19).replace('T', ' ') : undefined
     };
-    console.log(problem);
-    // let self = this;
-    // this.$http.post('/api/problems', problem)
-    //   .then(function(res) {
-    //     self.$state.go('problems.all');
-    //   });
+    // console.log(problem);
+    let self = this;
+    this.$http.post('/api/problems', problem)
+      .then(function(res) {
+        self.$state.go('problems.all');
+      });
   }
 }
 
