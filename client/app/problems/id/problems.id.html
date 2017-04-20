@@ -1,14 +1,12 @@
 <!-- Current Task Jumbotron -->	
 <div class="container-fluid" ng-init="problemsCtrl.init()">
-	<div class="coding-section">
+	<div class="coding-section" style="margin-top: 20px">
 		<div >
 			<div class="col-md-6 description">
-				<div style="">
+				<div style="background-color: white; padding: 20px;">
 					<h1>{{problemsCtrl.title}}</h1>
 
-					<p>Description:</p> <!-- Describe the Task Here -->
-					<div>
-						{{problemsCtrl.description}}
+					<div id="description-pannel">
 					</div>
 
 					<div class="mw-highlight mw-content-ltr" dir="ltr">

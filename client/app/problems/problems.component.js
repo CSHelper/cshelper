@@ -14,6 +14,22 @@ export class ProblemsComponent {
     this.$http = $http;
     this.$timeout = $timeout;
     this.$state = $state;
+
+    var md = window.markdownit({
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return '<pre class="hljs"><code>' +
+                   hljs.highlight(lang, str, true).value +
+                   '</code></pre>';
+          } catch (__) {}
+        }
+
+        return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+      }
+    });
+
+    this.md = md;
   }
 
   getAll() {
@@ -69,18 +85,14 @@ export class ProblemsComponent {
     this.tests = tests;
     this.editor = (this.createCodeMirror('code-editor'));
     this.editor.setOption('mode', 'text/x-csrc');
-    this.description = problem.description;
-    this.title = problem.title;
 
-    // this.output = this.createCodeMirror('code-output', {
-    //   readOnly: 'nocursor',
-    //   showCursorWhenSelecting: false
-    // })
+    this.description = problem.description;
+    $('#description-pannel').html(this.md.render(this.description));
+    this.title = problem.title;
 
     let editor = this.editor;
     let self = this;
     $('#languageSelector').on('change', function(e) {
-      console.log($(this).val());
       editor.setOption('mode', $(this).val());
     })
 
@@ -98,7 +110,7 @@ export class ProblemsComponent {
 
   run() {
     let self = this;
-    for (let i = 0; i < self.hiddenTests.length; i++) {
+    for (let i = 0; i < self.tests.length; i++) {
       self.tests[i].class = 'fa-clock-o'
     }
     let promise = this.sendCode(false);
