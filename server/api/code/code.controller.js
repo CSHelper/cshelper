@@ -82,7 +82,8 @@ export function index(req, res) {
 export function show(req, res) {
   return Code.find({
     where: {
-      _id: req.params.id
+      _id: req.params.id,
+      isSubmit: true
     }
   })
     .then(handleEntityNotFound(res))
@@ -97,10 +98,10 @@ export function create(req, res) {
   let query = {
     where: {
       problemId: req.body.problemId,
-      isHidden: !req.body.isSubmit
+      isHidden: req.body.isSubmit
     }
   };
-  console.log(req.body);
+
   let testFunc;
   switch (req.body.language) {
     case 'c':
@@ -221,7 +222,8 @@ export function destroy(req, res) {
 export function getStudentStats(req, res) {
   return UserCodeView.findAll({
     where: {
-      userId: req.params.id
+      userId: req.params.id,
+      isSubmit: true
     },
     order: [
       ['problemId', 'DESC']

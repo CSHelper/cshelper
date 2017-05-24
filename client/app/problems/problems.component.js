@@ -7,13 +7,14 @@ import routes from './problems.routes';
 
 export class ProblemsComponent {
   /*@ngInject*/
-  constructor($stateParams, $timeout, $http, $state) {
+  constructor($stateParams, $timeout, $http, $state, Auth) {
     'ngInject';
 
     this.id = $stateParams.id;
     this.$http = $http;
     this.$timeout = $timeout;
     this.$state = $state;
+    this.isAdmin = Auth.isAdminSync;
 
     var md = window.markdownit({
       highlight: function (str, lang) {
@@ -61,7 +62,6 @@ export class ProblemsComponent {
   init() {
     this.editors = [];
     this.response;
-    this.tab = 'console';
 
     let self = this;
     this.$http.get('/api/problems/' + this.id)
@@ -98,22 +98,34 @@ export class ProblemsComponent {
 
   }
 
-  updateIcons(tests) {
+  updateIcons(tests, isSubmit) {
+    let failed = false;
     for (let i = 0; i < tests.length; i++) {
       if (tests[i].isSuccess) {
         tests[i].class = 'fa-check success';
       } else {
         tests[i].class = 'fa-times fail';
+        failed = true;
+      }
+    }
+
+    if (isSubmit) {
+      if (failed) {
+        this.isSubmitSuccess = 'fa-times fail';
+      } else {
+        this.isSubmitSuccess = 'fa-check success';
       }
     }
   }
 
   run() {
+    let promise = this.sendCode(false);
+    if (!promise) return;
+
     let self = this;
     for (let i = 0; i < self.tests.length; i++) {
       self.tests[i].class = 'fa-clock-o'
     }
-    let promise = this.sendCode(false);
 
     if (promise) {
       promise
@@ -135,42 +147,47 @@ export class ProblemsComponent {
   }
 
   submit() {
+    let promise = this.sendCode(true);
+
+    if (!promise) return;
+
     let self = this;
     for (let i = 0; i < self.hiddenTests.length; i++) {
-      self.hiddenTests[i].class = 'fa-clock-o'
+      self.hiddenTests[i].class = 'fa-clock-o';
     }
-
-    let promise = this.sendCode(true);
+    this.isSubmitSuccess = 'fa-clock-o';
 
     if (promise) {
       promise
         .then(function (res) {
           for (let i = 0; i < res.data.tests.length; i++) {
             self.hiddenTests[i].isSuccess = res.data.tests[i].isSuccess;
+            self.hiddenTests[i].output = res.data.tests[i].output;
           }
-          self.updateIcons(self.hiddenTests);
+          self.updateIcons(self.hiddenTests, true);
         })
         .catch(function (error) {
           for (let i = 0; i < self.tests.length; i++) {
             self.hiddenTests[i].isSuccess = false;
+            self.hiddenTests[i].output = error.data.error;
           }
-          self.updateIcons(self.hiddenTests);
+          self.updateIcons(self.hiddenTests, true);
         });
     }
   }
 
   sendCode(isSubmit) {
     let self = this;
-    self.isProcessing = true;
-
+    
     let data = {
       problemId: this.id,
       content: this.editor.getValue(), 
       language: $('#languageSelector').find('option:selected').text().toLowerCase(),
       isSubmit
     }
-    console.log(data);
+
     if(this.editor.getValue()) {
+      self.isProcessing = true;
       return this.$http.post('/api/codes', data)
         .then(function(res) {
           self.isProcessing = false;
@@ -178,17 +195,11 @@ export class ProblemsComponent {
         })
         .catch(function (error) {
           self.isProcessing = false;
-
           return new Promise(function (_, reject) {
             reject(error);
           })
         })
     }
-  }
-
-  displayConsole() {
-    if (this.tab === 'console')
-      this.output.getDoc().setValue(this.response.consoleOutput);
   }
 
   createCodeMirror(id, options) {

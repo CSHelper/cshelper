@@ -47,7 +47,7 @@ module.exports = function makeWebpackConfig(options) {
                 'angular-cookies',
                 'angular-resource',
                 'angularjs-datepicker',
-                //'angular-toastr',
+                'angular-toastr',
                 'angular-sanitize',
                 'angular-socket-io',
                 // 'angular-ui-bootstrap',

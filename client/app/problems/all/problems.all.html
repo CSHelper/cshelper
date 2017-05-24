@@ -5,20 +5,39 @@
       <tr>
         <!-- <th>Id</th> -->
         <th>Title</th>
-        <!-- <th>Assigner</th> -->
-        <!-- <th>Assignee</th> -->
+        <th>Assigner</th>
+        <th>Assignee</th>
         <!-- <th>Complete rate</th> -->
         <th>Due date</th>
+        <th ng-show="problemsCtrl.isAdmin()" style="text-align: center;">Edit</th>
+        <th ng-show="problemsCtrl.isAdmin()" style="text-align: center;">Remove</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="problem in problemsCtrl.problems track by $index">
         <!-- <td>{{problem._id}}</td> -->
         <td><a ui-sref="problems.id({id: problem._id})">{{problem.title}}</a></td>
-        <!-- <td>{{problem.assignTo[0].assignerName}}</td> -->
-        <!-- <td><a ng-repeat="assignee in problem.assignTo">{{assignee.assigneeName}}, </a></td> -->
+        <td>
+          {{problem.assignTo[0].assignerName}}
+        </td>
+        <td> 
+          <span ng-repeat="assignee in problem.assignTo track by $index| limitTo:10">
+            <a ui-sref="teacher.studentStatistics({userId:assignee._id})">{{assignee.assigneeName}}</a><span ng-show="$index < problem.assignTo.length - 1">, </span>
+          </span> 
+          <span ng-show="problem.assignTo.length >= 10">...</span>
+        </td>
         <!-- <td>70%</td> -->
         <td>{{problem.deadline}}</td>
+        <td ng-show="problemsCtrl.isAdmin()" style="text-align: center;">
+          <a href="">
+            <i class="fa fa-pencil-square-o success" aria-hidden="true"></i>
+          </a>
+        </td>
+        <td ng-show="problemsCtrl.isAdmin()" style="text-align: center;">
+          <a href="">
+            <i class="fa fa-trash-o fail" aria-hidden="true"></i>
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>

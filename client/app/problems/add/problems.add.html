@@ -7,58 +7,27 @@
         <hr>
         <div class="row">       
           <div class="col-sm-10">
-          <!-- <div class="form-group">
-                <label>Assign Problem to Students: 
-                  </br>
-                  <span style="color:#999999">(hold ctrl to select more than one)</span>
-                </label>
+            <div class="form-group">
+              <!-- <label>Assign Problem to Students: 
                 </br>
-                </br>
-                <select style="height: 154px" multiple class="form-control selectStudents" id="selectStudents">
-                  <option ng-repeat="std in ProblemsAddCtrl.students">{{std.name}}</option>
-                </select>
-          </div> -->
+                <span style="color:#999999">(hold ctrl to select more than one)</span>
+              </label>
+              </br>
+              </br>
+              <select style="height: 154px" multiple class="form-control selectStudents" id="selectStudents" ng-model="ProblemsAddCtrl.problem.assignees">
+                <option ng-repeat="student in ProblemsAddCtrl.students" value="{{student._id}}">{{student.name}}</option>
+              </select> -->
+            </div>
 
-          <!-- <label>Due Date </label>(optional):
-          <datepicker date-format="MMMM d, y">
-            <input class="form-control" placeholder=" Choose a date" type="text" ng-model="ProblemsAddCtrl.dueDate"/>
-          </datepicker> -->
-          <hr>
-          <br/>
-            <!-- <div class="form-group">
-              <label>Select Language:</label>
-              <select class="form-control" id="language">
-                <option>Java</option>
-                <option>C++</option>
-                <option>C</option>
-                <option>Python</option>
-              </select>
-              </br>
-              </br>
-              </br>
-              <label>Select Section:</label> 
-              <select class="form-control" id="section">
-                <option>Java Basics</option>
-                <option>Conditional Statements</option>
-                <option>Loops</option>
-              </select>
-              </br>
-              </br>
-              </br>
-              <label>Select Topic:</label> 
-              <select class="form-control" id="topic">
-                <option>Data Types</option>
-                <option>If Statements</option>
-                <option>Output</option>
-              </select>
-              
-              <hr>
-
-              
-            </div> -->
+            <!-- <label>Due Date </label>(optional):
+            <datepicker date-format="MMMM d, y">
+              <input class="form-control" placeholder=" Choose a date" type="text" ng-model="ProblemsAddCtrl.problem.dueDate"/>
+            </datepicker> -->
+            <hr>
+            <br/>
           </div>
         </div>
-          </div>
+      </div>
           
     
         <div class="col-sm-6" > <!-- Problem Creation Column -->
@@ -69,11 +38,11 @@
           
           <div class="form-group">
             <label>Problem Name:</label>
-            <input ng-model="ProblemsAddCtrl.title" type="text" class="form-control" id="problemName" required>
+            <input ng-model="ProblemsAddCtrl.problem.title" type="text" class="form-control" id="problemName" required>
             </br>
           
             <label for="comment">Description:</label>
-            <textarea ng-model="ProblemsAddCtrl.description" class="form-control" rows="25" id="comment" required></textarea>
+            <textarea ng-model="ProblemsAddCtrl.problem.description" class="form-control" rows="25" id="comment" required></textarea>
           </div>
 
           <input class="btn btn-primary pull-right" type="submit">
@@ -84,16 +53,17 @@
            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Test Creation</strong></a>
            <hr>
            
-           <div class="row">
-             <div class="pull-right">
+          <div class="row">
+             <div class="pull-right" style="padding-right: 20px">
                <a ng-click="ProblemsAddCtrl.addTestCase()" class="btn btn-info" >Add a Test</a>
              </div>
           </div>
 
-          <div style="overflow-y: scroll; height: 76vh;">
+          <div style="overflow-y: auto; height: 76vh;">
+
             <label for="comment">Tests:</label>
             <ul class="nav nav-pills nav-stacked" id="stacked-menu">
-              <li ng-repeat="test in ProblemsAddCtrl.testCases track by $index">
+              <li ng-repeat="test in ProblemsAddCtrl.problem.testCases track by $index" style="margin-bottom: 10px;">
                 <div class="list-group-item list-group-item-info">
                   <a data-toggle="collapse" data-parent="#stacked-menu" href="#p{{$index + 1}}">Test {{$index + 1}}<span class="caret arrow"></span></a>
 
@@ -118,28 +88,6 @@
               </li>
             </ul>
           </div>
-
-          <!-- <div style="overflow-y: scroll; height: 76vh;">
-            <label for="comment">Tests:</label>
-            <div ng-repeat="test in ProblemsAddCtrl.testCases">
-              <li class="list-group-item list-group-item-info">
-                Test {{$index + 1}}
-
-                <a href="" class="pull-right" ng-click="ProblemsAddCtrl.deleteTest($index)">delete</a>
-              </li>
-              <li class="list-group-item">
-                <label>Hidden: <input type="checkbox" ng-model="test.isHidden"></label>
-              </li>
-              <li class="list-group-item"><label>Input:</label>
-
-                <textarea ng-model="test.inputs" class="form-control" rows="5" id="comment" required></textarea>
-              </li>
-              <li class="list-group-item"><label>Output:</label>
-
-              <textarea ng-model="test.expectedOutput" class="form-control" rows="2" id="comment" required></textarea>
-              </li>
-            </div>
-          </div> -->
         </div>
   </div>
   <!-- /Main -->  

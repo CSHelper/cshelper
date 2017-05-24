@@ -16,6 +16,8 @@ var db = {
 };
 
 // Insert models below
+db.ProblemAttempts = db.sequelize.import('../api/statistics/problemAttempts.model');
+db.Statistics = db.sequelize.import('../api/statistics/statistics.model');
 db.TutorStudent = db.sequelize.import('../api/tutorStudent/tutorStudent.model');
 db.TutorView = db.sequelize.import('../api/tutorStudent/tutorView.model');
 db.Dataset = db.sequelize.import('../api/dataset/dataset.model');

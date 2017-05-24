@@ -55,6 +55,7 @@
 /* inject:css */
 @import 'admin/admin.css';
 @import 'main/main.css';
+@import 'manage/manage.css';
 @import 'manageStudents/manageStudents.css';
 @import 'problemCreation/problemCreation.css';
 @import 'problems/problems.css';
@@ -233,3 +234,65 @@ body {
   font-family: FontAwesome;
   padding-left: 30px !important;
 }
+
+/**
+ * Manage page
+ */
+
+.filterable {
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+
+.usersTable{
+    margin-top: 15%;
+    color: black;
+}
+
+.studSel{
+    margin: -1px auto -1px auto;
+}
+
+div.pager {
+    text-align: center;
+    margin: 1em 0;
+}
+
+div.pager span {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+div.pager span.active {
+    background: #c00;
+}
+
+/**
+ * End manage page
+ */

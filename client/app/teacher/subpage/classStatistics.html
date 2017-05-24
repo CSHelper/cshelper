@@ -16,13 +16,16 @@
   <div class="row">
     <!-- center left-->
     <div class="col-md-4">
-
     
       <div class="panel-tile">
-	      <span class="panel-header">Problem Attempts Overview</span>
+	      <span class="panel-header">Capacity: {{teacherCtrl.students.length}} students</span>
 	      <hr>
 	      <!-- Pie Chart -->
-	      <div id="pie-chart" style="height: 300px; max-width: 600px; margin: 0 auto"></div>
+        <div style="height: 300px; max-width: 600px; margin: 0 auto; padding-left: 17px">
+          <div class="row" ng-repeat="student in teacherCtrl.students | limitTo:10">
+            <a ui-sref="teacher.studentStatistics({userId:student._id})">{{student.name}}</a>
+          </div>
+        </div>
       </div>
       
 

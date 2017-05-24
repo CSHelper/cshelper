@@ -9,7 +9,8 @@ import 'angular-socket-io';
 
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
-import _ from 'angularjs-datepicker';
+// import _ from 'angularjs-datepicker';
+import toastr from 'angular-toastr';
 const datepicker = '720kb.datepicker'
 
 
@@ -30,13 +31,12 @@ import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
 import ManageStudentsComponent from './manageStudents/manageStudents.component';
+import ManageComponent from './manage/manage.component';
 import TeacherComponent from './teacher/teacher.component';
 import './app.css';
 
-angular.module('firstPresentationApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', datepicker,
-    uiRouter, uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, 
-    ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent, 
-    ProblemAddComponent
+angular.module('firstPresentationApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', datepicker, toastr, uiRouter, uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, ManageComponent, 
+    ProblemsComponent, StatsticComponent, ManageStudentsComponent, TeacherComponent, ProblemAddComponent
   ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {

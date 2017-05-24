@@ -7,7 +7,18 @@ import routes from './statstic.routes';
 
 export class StatsticComponent {
   /*@ngInject*/
-  constructor() {
+  constructor($http, $stateParams) {
+    this.$http = $http;
+    this.$stateParams = $stateParams;
+    console.log($stateParams);
+    buildGraph();
+  }
+
+  setup() {
+
+  }
+
+  buildGraph() {
     var n = 3, // number of layers
         m = 12, // number of samples per layer
         stack = d3.layout.stack(),

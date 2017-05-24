@@ -3,7 +3,7 @@
 	<div class="coding-section" style="margin-top: 20px">
 		<div >
 			<div class="col-md-6 description">
-				<div style="background-color: white; padding: 20px;">
+				<div style="background-color: white; padding: 20px; min-height: 85vh">
 					<h1>{{problemsCtrl.title}}</h1>
 
 					<div id="description-pannel">
@@ -50,12 +50,12 @@
 					  <li class="menu" ng-repeat="test in problemsCtrl.tests track by $index">
 					  	<a data-toggle="tab" href="#test{{$index + 1}}">
 					  		Test {{$index + 1}}
-					  		<i class="fa pull-right" ng-class="test.class" aria-hidden="true"></i>
+					  		<i class="fa pull-right" ng-class="test.class" aria-hidden="true" data-toggle="tooltip" title="{{test.output}}"></i>
 					  	</a>
 				  	</li>
 				  	<li class="menu">
 					  	<a data-toggle="tab" href="#hiddenTests">
-					  		Hidden tests
+					  		Hidden tests <i class="fa pull-right" ng-class="problemsCtrl.isSubmitSuccess"></i>
 					  	</a>
 				  	</li>
 					</ul>
@@ -83,7 +83,9 @@
   	  		    	<div class="row">
   	  		    		<div ng-repeat="test in problemsCtrl.hiddenTests track by $index" class="col-md-3">
   	  		    			Test {{$index + 1}}
-  	  		    			<i class="fa" ng-class="test.class" aria-hidden="true"></i>
+  	  		    			<a href="" data-toggle="tooltip" title="{{test.output}}">
+  	  		    				<i class="fa" ng-class="test.class" aria-hidden="true" ></i>
+  	  		    			</a>
   	  		    		</div>
   	  		    	</div>
     		    	</div>

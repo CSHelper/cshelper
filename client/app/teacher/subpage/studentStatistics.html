@@ -1,4 +1,4 @@
-<div id="studentStatistics" ng-init="teacherCtrl.initStatistic()">
+<div id="studentStatistics" ng-init="teacherCtrl.initStudentStats()">
 	<div class="container-fluid">
 	      <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> Student Statistics</strong></a>
 	      <hr></hr>
@@ -36,9 +36,7 @@
 				      <hr></hr>
 
 				      <div class="list-group">
-					      <a href="#" class="list-group-item">If Statement</a>
-					      <a href="#" class="list-group-item">Literals</a>
-					      <a href="#" class="list-group-item">Break Statement</a>
+					      <a href="#" class="list-group-item" ng-repeat="problem in teacherCtrl.failedProblems" ui-sref="problems.id({id: problem.problemId})">{{problem.title}}</a>
 				      </div>
 			      </div>
 			      
@@ -59,7 +57,3 @@
 	      </div><!--/row-->  
 	</div>
 </div>
-<!-- /Main -->	
-<script type="text/javascript">
-	loadCalendar();
-</script>

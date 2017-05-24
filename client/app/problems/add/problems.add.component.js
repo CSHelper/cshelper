@@ -7,15 +7,20 @@ const uiRouter = require('angular-ui-router');
 
 export class ProblemAddComponent {
   /*@ngInject*/
-  constructor($http, $state) {
+  constructor($http, $state,toastr) {
     this.$http = $http;
     this.$state = $state;
-    this.testCases = [];
+    this.toastr = toastr;
+
+    this.problem = {
+      description: '',
+      language: '',
+      title: '',
+      testCases: [],
+      assignees: [],
+      dueDate: undefined
+    }
     this.addTestCase();
-    this.description = '';
-    this.language = '';
-    this.title = '';
-    this.functionName = '';
     this.getStudents();
   }
 
@@ -29,7 +34,7 @@ export class ProblemAddComponent {
   }
 
   addTestCase() {
-    this.testCases.push({
+    this.problem.testCases.push({
       isHidden: true,
       inputs: '',
       expectedOutput: ''
@@ -37,22 +42,28 @@ export class ProblemAddComponent {
   }
 
   deleteTest(index) {
-    this.testCases.splice(index, 1);
+    this.problem.testCases.splice(index, 1);
   }
 
   submit() {
-    let problem = {
-      testCases: this.testCases,
-      description: this.description,
-      title: this.title,
-      assignees: this.assignees,
-      dueDate: this.dueDate ? (new Date(this.dueDate)).toISOString().substring(0, 19).replace('T', ' ') : undefined
-    };
-    // console.log(problem);
+    let isHidden = false;
+    for (var i = 0; i < this.problem.testCases.length; i++) {
+      if (this.problem.testCases[i].isHidden) {
+        isHidden = true;
+        break;
+      }
+    }
+
+    if (!isHidden) {
+      this.toastr.error('Problem must have at least 1 hidden test case.', 'Error');
+      return;
+    }
+
     let self = this;
-    this.$http.post('/api/problems', problem)
+    this.$http.post('/api/problems', this.problem)
       .then(function(res) {
         self.$state.go('problems.all');
+        self.toastr.success('Problem created', 'Success');
       });
   }
 }
